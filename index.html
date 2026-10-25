@@ -39,6 +39,30 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 
 <main>
 
+<section id="binance"><h2>₿ Departamento Binance</h2>
+<p class="muted">Configuração inicial proposta: 50 € de capital máximo, mercado Spot, sem alavancagem. Estado real: ainda não ligado à Binance. Este painel não envia ordens nem acede à tua conta.</p>
+<div class="stats">
+<div class="stat"><span class="num">50 €</span><small>Capital máximo planeado</small></div>
+<div class="stat"><span class="num">5 €</span><small>Máximo proposto por ordem</small></div>
+<div class="stat"><span class="num">2 €</span><small>Limite diário proposto</small></div>
+</div>
+<h3>Regras de segurança</h3>
+<ul><li>Spot apenas; sem futuros, margem ou alavancagem.</li><li>Sem permissão de levantamentos na chave API.</li><li>Testar primeiro no ambiente oficial de demonstração/Testnet.</li><li>Parar a estratégia quando houver erro de API, dados desatualizados ou limite de perda atingido.</li><li>Os limites são uma proposta de configuração, não controlos ativos na Binance.</li></ul>
+<h3>Próximo passo: teste oficial</h3>
+<p>Usa os links oficiais para ler a documentação e entrar no ambiente de teste. Não coloques chaves API ou palavras-passe nesta página.</p>
+<div class="actions">
+<button type="button" onclick="window.open('https://testnet.binance.vision/','_blank','noopener')">Abrir Binance Spot Testnet</button>
+<button type="button" class="secondary" onclick="window.open('https://developers.binance.com/en/docs/introduction','_blank','noopener')">Documentação API oficial</button>
+</div>
+<div class="plan-note" id="binanceStatus" role="status" aria-live="polite">Estado: NÃO LIGADO. Para negociar automaticamente com dinheiro real é necessário um serviço de backend seguro para guardar a chave API, executar a estratégia e aplicar limites no servidor. GitHub Pages sozinho não pode guardar segredos com segurança nem executar um robô continuamente.</div>
+<h3>Lista de preparação</h3>
+<label style="display:flex;gap:8px;align-items:flex-start;margin:10px 0"><input type="checkbox" style="width:20px;min-width:20px" onchange="binanceChecklist()"> Estratégia testada sem dinheiro real</label>
+<label style="display:flex;gap:8px;align-items:flex-start;margin:10px 0"><input type="checkbox" style="width:20px;min-width:20px" onchange="binanceChecklist()"> Backend seguro configurado e revisto</label>
+<label style="display:flex;gap:8px;align-items:flex-start;margin:10px 0"><input type="checkbox" style="width:20px;min-width:20px" onchange="binanceChecklist()"> Permissões API mínimas e levantamentos desativados</label>
+<label style="display:flex;gap:8px;align-items:flex-start;margin:10px 0"><input type="checkbox" style="width:20px;min-width:20px" onchange="binanceChecklist()"> Limites de ordem, perda diária e botão de paragem testados</label>
+<p class="hint">As caixas são apenas uma checklist visual deste navegador; não ativam nem verificam ligações reais.</p>
+</section>
+
 <section id="planos"><h2>💳 Planos ROBOT HQ</h2>
 <p class="muted">Começa gratuitamente. O plano Pro é uma proposta comercial; contas de utilizador e pagamentos ainda não estão ativados.</p>
 <div class="pricing-grid">
@@ -156,6 +180,7 @@ function realtyAI(provider){const p=realtyBuildPrompt();document.getElementById(
 async function realtyCopy(){const p=realtyBuildPrompt();try{await navigator.clipboard.writeText(p);document.getElementById('realtyStatus').textContent='Pedido copiado. Cola-o na ferramenta de IA.'}catch(e){const box=document.getElementById('realtyDetails');box.value=p;box.focus();box.select();document.getElementById('realtyStatus').textContent='Selecionámos o pedido na caixa de texto para copiares manualmente.'}}
 function realtyTemplate(type){const examples={buyer:'Comprador procura: zona(s) __; orçamento __; tipologia __; financiamento pré-aprovado? __; prazo __; prioridades __; fatores eliminatórios __.',seller:'Primeiro contacto ao proprietário. Zona __; canal (WhatsApp/telefone/email) __; contexto do contacto __; tom profissional e sem pressão.',follow:'Seguimento após visita. Imóvel/zona __; dúvidas que o cliente realmente partilhou __; próximo passo combinado __. Não inventes o que o cliente disse.',listing:'Checklist antes de publicar: preço autorizado; localização; áreas e fonte; tipologia; estado; piso/elevador; certificado energético; licença/documentação aplicável; condomínio; estacionamento; características confirmadas; autorização para fotos e divulgação.'};document.getElementById('realtyDetails').value=examples[type]||'';document.getElementById('realtyStatus').textContent='Modelo carregado. Preenche apenas informação confirmada.'}
 
+function binanceChecklist(){const boxes=[...document.querySelectorAll('#binance input[type="checkbox"]')];const count=boxes.filter(x=>x.checked).length;const el=document.getElementById('binanceStatus');if(el)el.textContent='Estado: NÃO LIGADO. Checklist visual: '+count+' de '+boxes.length+' itens assinalados. Isto não verifica nem ativa a integração.'}
 function freePlan(){document.getElementById('planStatus').textContent='Plano grátis selecionado. Podes continuar a usar as funções atuais do site; tarefas guardadas apenas neste navegador.'}
 function proPlan(){document.getElementById('planStatus').textContent='Obrigado pelo interesse! O ROBOT HQ Pro ainda não está à venda: não existem contas de utilizador, cobrança recorrente ou pagamentos ligados. Não foi cobrado qualquer valor. O próximo passo é configurar autenticação, um serviço de pagamentos e alojamento adequado.'}
 
