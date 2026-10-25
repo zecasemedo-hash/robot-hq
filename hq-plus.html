@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-PT"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#08111f"><title>ROBOT HQ Plus</title>
+<style>
+:root{color-scheme:dark;--bg:#08111f;--panel:#12223a;--line:#29415d;--cyan:#6cecff;--muted:#b5c4d8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#183356,var(--bg) 65%);color:#f5f8ff;font:16px -apple-system,BlinkMacSystemFont,sans-serif}header{text-align:center;padding:24px 14px;border-bottom:1px solid var(--line)}h1{color:var(--cyan);letter-spacing:2px;margin:8px 0}main{max-width:950px;margin:auto;padding:12px}section{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px;margin:12px 0}h2{font-size:19px;color:var(--cyan);margin:0 0 12px}.muted{color:var(--muted);font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}.bot{border:1px solid #38506e;background:#0c192b;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}.emoji{font-size:30px}.bot h3{margin:0}.bot p{font-size:13px;color:var(--muted);margin:0;flex:1}button,a.btn{display:inline-block;text-align:center;border:0;border-radius:9px;background:var(--cyan);color:#071321;font-weight:800;text-decoration:none;padding:12px;min-height:44px;font-size:14px;cursor:pointer}a.btn{width:100%}.secondary{background:#203854;color:white;border:1px solid #3b5676}input,textarea{width:100%;padding:13px;border:1px solid #3b5676;border-radius:10px;background:#071424;color:white;font:16px -apple-system,sans-serif}textarea{min-height:85px}.row{display:grid;grid-template-columns:1fr auto;gap:8px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions a{margin:0}.task{padding:10px;margin-top:8px;background:#081626;border:1px solid var(--line);border-radius:10px;overflow-wrap:anywhere}.status{color:#8bffc5;font-size:13px;margin-top:8px}.tag{display:inline-block;border:1px solid #26745d;border-radius:99px;padding:5px 9px;color:#a5ffdc;font-size:11px}footer{text-align:center;color:#91a5c0;font-size:12px;padding:18px}
+</style>
+<header><span class="tag">PAINEL GRATUITO</span><h1>🤖 ROBOT HQ PLUS</h1><p class="muted">Um escritório para organizar o trabalho com ferramentas de IA.</p></header>
+<main>
+<section><h2>🔎 Pesquisa na Internet</h2><form id="searchForm" class="row"><input id="query" placeholder="O que queres pesquisar?" required><button>Pesquisar</button></form><p class="muted">A pesquisa abre o Google. Os resultados são fornecidos pelo motor de pesquisa, não por robôs autónomos.</p></section>
+<section><h2>🧠 Especialistas do escritório</h2><p class="muted">Escolhe um especialista e abre o pedido no ChatGPT. Estes perfis ajudam a organizar pedidos; não são modelos independentes ligados em segundo plano.</p><div class="grid" id="agents"></div></section>
+<section><h2>🌐 Abrir outros serviços de IA</h2><div class="actions"><a class="btn secondary" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a><a class="btn secondary" href="https://gemini.google.com/" target="_blank" rel="noopener">Google Gemini</a><a class="btn secondary" href="https://claude.ai/" target="_blank" rel="noopener">Claude</a><a class="btn secondary" href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a><a class="btn secondary" href="https://www.perplexity.ai/" target="_blank" rel="noopener">Perplexity</a><a class="btn secondary" href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face</a></div><p class="muted">Cada serviço tem os seus próprios limites e condições gratuitas. Nenhuma API está ligada automaticamente.</p></section>
+<section><h2>⚡ Dar uma ordem</h2><textarea id="order" placeholder="Escreve o que queres que a equipa faça..."></textarea><div class="actions"><button id="save">Guardar tarefa</button><button id="send" class="secondary">Enviar ao ChatGPT</button></div><div class="status" id="status" aria-live="polite"></div></section>
+<section><h2>📋 Tarefas guardadas</h2><p class="muted">Guardadas localmente neste navegador. Se limpares os dados do Safari, podem desaparecer.</p><div id="tasks"></div><button id="clear" class="secondary">Apagar tarefas concluídas</button></section>
+<section><h2>📱 Usar no iPhone</h2><p class="muted">No Safari, toca em Partilhar e depois em “Adicionar ao ecrã principal”. Não introduzas palavras-passe, chaves secretas ou dados bancários nesta página pública.</p><p class="muted"><strong>Limite honesto:</strong> esta página pode pesquisar, organizar tarefas e abrir serviços. Para executar ações por si só, falar com APIs ou trabalhar em segundo plano, é necessária uma integração adicional e, em muitos casos, uma chave de API.</p></section>
+</main><footer>ROBOT HQ PLUS · Preparado para Safari no iPhone</footer>
+<script>
+const agents=[
+['🤖','ATLAS','Estratégia e gestão','Cria um plano estratégico com prioridades, etapas, custos e riscos.'],
+['🔎','SCOUT','Pesquisa e fontes','Pesquisa informação atual, cita fontes e separa factos de estimativas.'],
+['💶','LEDGER','Finanças e margens','Calcula custos, receitas, margens e cenários financeiros.'],
+['📣','PIXEL','Marketing e redes','Cria anúncios, publicações e um calendário de conteúdos.'],
+['📈','NOVA','Vendas e clientes','Prepara estratégias para captar clientes e melhorar vendas.'],
+['💻','BUILDER','Programação e sites','Ajuda a criar e corrigir sites e aplicações, com código e passos simples.'],
+['📝','SCRIBE','Escrita e documentos','Redige emails, propostas, textos e documentos prontos a usar.'],
+['🌍','TRANSLATE','Tradução e idiomas','Traduz mantendo o significado, o tom e o contexto.'],
+['🎨','CREATIVE','Design e imagem','Cria conceitos visuais e instruções para ferramentas de imagem.'],
+['🎬','STUDIO','Vídeo e áudio','Prepara guiões, locuções, cenas e planos de edição.'],
+['📚','TUTOR','Aprendizagem','Explica temas por etapas, com exemplos e exercícios.'],
+['🛡️','GUARD','Verificação e segurança','Avalia riscos, verifica afirmações e assinala incertezas.'],
+['🛍️','SHOPPER','Produtos e preços','Compara opções e prepara pesquisas de preços atuais.'],
+['🗂️','ADMIN','Organização','Organiza agenda, listas, processos e tarefas administrativas.'],
+['🧪','ANALYST','Dados e relatórios','Analisa os dados fornecidos e explica cálculos e conclusões.'],
+['🤝','SUPPORT','Apoio ao cliente','Cria respostas profissionais e planos de acompanhamento.'],
+['🛞','TYRE','Pneus e oficina','Analisa fornecedores, custos, preços de venda e margens de pneus.'],
+['🧰','AUTOMATE','Automação','Propõe fluxos de trabalho e ferramentas gratuitas ou freemium.'],
+['⚖️','LEGAL GUIDE','Informação legal','Resume informação geral e procura fontes oficiais, sem substituir um advogado.'],
+['🌱','IDEAS','Novas oportunidades','Gera ideias de negócio e formas de as testar com baixo custo.']
+];
+const agentsBox=document.getElementById('agents');
+agents.forEach(a=>{const d=document.createElement('div');d.className='bot';const em=document.createElement('div');em.className='emoji';em.textContent=a[0];const h=document.createElement('h3');h.textContent=a[1];const p=document.createElement('p');p.textContent=a[2];const b=document.createElement('button');b.textContent='Dar ordem';b.onclick=()=>goAI(a[1]+': '+a[3]+(document.getElementById('order').value.trim()?'\n\nPedido: '+document.getElementById('order').value.trim():''));d.append(em,h,p,b);agentsBox.append(d)});
+const KEY='robot-hq-plus-tasks';let tasks=[];try{tasks=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(tasks))tasks=[]}catch(e){tasks=[]}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(tasks))}catch(e){document.getElementById('status').textContent='Não foi possível guardar no navegador.'}}
+function goAI(q){window.location.href='https://chatgpt.com/?q='+encodeURIComponent(q)}
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('query').value.trim();if(q)window.location.href='https://www.google.com/search?q='+encodeURIComponent(q)});
+document.getElementById('save').onclick=()=>{const v=document.getElementById('order').value.trim();if(!v){document.getElementById('status').textContent='Escreve uma tarefa primeiro.';return}tasks.unshift({text:v,done:false,created:new Date().toLocaleString('pt-PT')});persist();render();document.getElementById('order').value='';document.getElementById('status').textContent='Tarefa guardada neste navegador.'};
+document.getElementById('send').onclick=()=>{const v=document.getElementById('order').value.trim();if(v)goAI('Ajuda-me a executar esta tarefa com passos concretos e verificáveis: '+v);else document.getElementById('status').textContent='Escreve uma ordem primeiro.'};
+document.getElementById('clear').onclick=()=>{tasks=tasks.filter(t=>!t.done);persist();render()};
+function render(){const box=document.getElementById('tasks');box.replaceChildren();if(!tasks.length){const p=document.createElement('p');p.className='muted';p.textContent='Ainda não há tarefas guardadas.';box.append(p);return}tasks.forEach((t,i)=>{const d=document.createElement('div');d.className='task';const label=document.createElement('label');const cb=document.createElement('input');cb.type='checkbox';cb.checked=t.done;cb.style.width='20px';cb.addEventListener('change',()=>{tasks[i].done=cb.checked;persist();render()});label.append(cb,document.createTextNode(' '+t.text));if(t.done)label.style.textDecoration='line-through';const meta=document.createElement('p');meta.className='muted';meta.textContent='Criada: '+t.created;const b=document.createElement('button');b.className='secondary';b.textContent='Abrir no ChatGPT';b.onclick=()=>goAI('Ajuda-me a executar esta tarefa: '+t.text);d.append(label,meta,b);box.append(d)})}
+render();
+</script></html>
