@@ -112,6 +112,19 @@ body>header,.office-hero{display:none!important}main{display:none}
 <div class="office-copy"><h2>Um escritório inteiro a trabalhar para ti</h2><p>Estratégia, pesquisa, marketing, finanças e organização num só lugar.</p><div class="office-bots" aria-label="Equipa de robôs">🤖 🧠 🔎 💶 ⚙️ 🤖</div></div><div class="actions" style="justify-content:center;margin-top:10px"><button type="button" onclick="document.getElementById('scoutMissionSystem').scrollIntoView({behavior:'smooth',block:'start'})">Abrir Centro SCOUT</button></div>
 </section>
 
+<section class="panel" id="imageLab" style="margin:18px 0;padding:18px;border:1px solid #29415f;border-radius:18px;background:#111d32">
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div style="font-size:32px">🎨</div><div><h2 style="margin:0">ROBOT HQ — Estúdio de Imagens</h2><p style="margin:5px 0;color:#aebed5">Descreve a imagem e pede ao gerador para a criar.</p></div></div>
+  <label for="imagePrompt" style="display:block;margin:14px 0 6px">O que queres criar?</label>
+  <textarea id="imagePrompt" rows="4" placeholder="Ex.: fotografia realista de um Mercedes clássico num stand moderno, luz cinematográfica..." style="box-sizing:border-box;width:100%;padding:12px;border-radius:12px;border:1px solid #29415f;background:#080d1b;color:#fff;font:inherit"></textarea>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+    <button type="button" id="makeImageBtn" onclick="robotHQMakeImage()">Gerar imagem</button>
+    <button type="button" id="openImageBtn" onclick="robotHQOpenImage()" disabled>Abrir imagem</button>
+    <button type="button" onclick="document.getElementById('imagePrompt').value=''">Limpar texto</button>
+  </div>
+  <p id="imageStatus" role="status" style="color:#aebed5;margin:10px 0">Serviço experimental gratuito de terceiros. Pode ter limites ou ficar indisponível; não exige chave API no site.</p>
+  <div id="imageResultWrap" style="display:none;margin-top:14px"><img id="imageResult" alt="Imagem gerada pelo Estúdio ROBOT HQ" style="display:block;width:100%;max-width:850px;max-height:75vh;object-fit:contain;border-radius:14px;background:#080d1b"><p style="color:#aebed5;font-size:13px">No iPhone, mantém o dedo sobre a imagem para a guardar, se o Safari apresentar essa opção.</p></div>
+</section>
+
 <section class="game-office" id="virtualOffice" aria-label="Equipa ROBOT HQ em escritório estilo videojogo">
 <div class="game-topbar"><span>● ESCRITÓRIO VIRTUAL</span><span>9 ROBÔS ESPECIALISTAS · PESQUISA IA ATUALIZADA</span></div>
 <div class="game-team">
@@ -447,6 +460,27 @@ function scoutBuildReport(){const cat=document.getElementById('scoutCategory').v
 function scoutCopyReport(){const t=document.getElementById('scoutReport').value;if(!t){scoutBuildReport();return}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>scoutStatus('Relatório copiado.')).catch(()=>scoutStatus('Não consegui copiar automaticamente; seleciona o texto do relatório e copia manualmente.'))}else{document.getElementById('scoutReport').focus();document.getElementById('scoutReport').select();scoutStatus('Texto selecionado. Usa Copiar no menu do iPhone.')}}
 function scoutDownloadReport(){if(!document.getElementById('scoutReport').value)scoutBuildReport();const text=document.getElementById('scoutReport').value;const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='ROBOT-HQ-SCOUT-relatorio.txt';document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);scoutStatus('Relatório preparado para guardar como ficheiro de texto.')}
 (function scoutInit(){try{const z=JSON.parse(localStorage.getItem(SCOUT_STORE_KEY)||'{}');if(z.category)document.getElementById('scoutCategory').value=z.category;if(z.budget!==undefined)document.getElementById('scoutBudget').value=z.budget;if(z.zone)document.getElementById('scoutZone').value=z.zone;if(z.terms)document.getElementById('scoutTerms').value=z.terms;if(Array.isArray(z.candidates))scoutCandidates=z.candidates;document.getElementById('scoutBudgetView').textContent=z.budget?Number(z.budget).toLocaleString('pt-PT')+' €':'Não definido';if(z.updated)document.getElementById('scoutMissionState').textContent='Guardada'}catch(e){}scoutRenderCandidates()})();
+
+
+/* ROBOT HQ image studio — third-party public image endpoint; no API key stored in the page */
+let robotHQCurrentImageUrl = '';
+function robotHQMakeImage(){
+  const field=document.getElementById('imagePrompt');
+  const status=document.getElementById('imageStatus');
+  const prompt=(field.value||'').trim();
+  if(!prompt){status.textContent='Escreve primeiro uma descrição da imagem.';field.focus();return;}
+  const btn=document.getElementById('makeImageBtn');
+  btn.disabled=true;document.getElementById('openImageBtn').disabled=true;
+  status.textContent='A preparar a imagem. O serviço externo pode demorar alguns segundos…';
+  const fullPrompt=prompt+', high quality, detailed composition';
+  robotHQCurrentImageUrl='https://image.pollinations.ai/prompt/'+encodeURIComponent(fullPrompt)+'?width=1024&height=1024&model=flux&nologo=true&seed='+Math.floor(Math.random()*1000000);
+  const img=document.getElementById('imageResult');
+  const wrap=document.getElementById('imageResultWrap');
+  img.onload=()=>{wrap.style.display='block';status.textContent='Imagem recebida. Podes abrir ou guardar no iPhone.';btn.disabled=false;document.getElementById('openImageBtn').disabled=false;};
+  img.onerror=()=>{status.textContent='Não foi possível obter a imagem. O serviço gratuito pode estar indisponível ou limitado. Tenta novamente mais tarde.';btn.disabled=false;};
+  wrap.style.display='block';img.removeAttribute('src');img.src=robotHQCurrentImageUrl;
+}
+function robotHQOpenImage(){if(robotHQCurrentImageUrl)window.open(robotHQCurrentImageUrl,'_blank','noopener');}
 
 render();
 renderLeads();
