@@ -1,65 +1,20 @@
-
-<!DOCTYPE html>
-<html lang="pt-PT">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ROBOT HQ</title>
+<!doctype html>
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080d1b"><title>ROBOT HQ</title>
 <style>
-body{margin:0;background:#080d1b;color:white;font-family:Arial;text-align:center}
-header{padding:25px;background:#111d32}
-h1{color:#65efff;letter-spacing:4px}
-main{max-width:900px;margin:auto;padding:16px}
-input,textarea{box-sizing:border-box;width:100%;padding:14px;background:#111d32;color:white;border:1px solid #456;border-radius:10px;font-size:16px}
-button{padding:12px;margin:5px;background:#65efff;color:#07111f;border:0;border-radius:9px;font-weight:bold}
-.room{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px;background:#111d32;border-radius:14px}
-.robot{padding:15px;background:#192943;border:1px solid #456;border-radius:12px}
-.bot{font-size:40px}
-h2,h3{color:#65efff}
-p{color:#bdcbe0}
-@media(min-width:650px){.room{grid-template-columns:repeat(3,1fr)}}
-</style>
-</head>
-<body>
-<header>
-<h1>ROBOT HQ</h1>
-<p>O teu escritório virtual de inteligência artificial</p>
-</header>
-<main>
-<h2>Pesquisa Google</h2>
-<form id="searchForm">
-<input id="search" placeholder="O que queres pesquisar?" required>
-<button type="submit">PESQUISAR</button>
-</form>
-<h2>A tua equipa de robôs</h2>
-<div class="room">
-<div class="robot"><div class="bot">🤖</div><h3>ATLAS</h3><p>Estratégia</p><button onclick="ask('Cria uma estratégia para o meu objetivo.')">Dar tarefa</button></div>
-<div class="robot"><div class="bot">🧠</div><h3>PIXEL</h3><p>Marketing</p><button onclick="ask('Cria um plano de marketing e redes sociais.')">Dar tarefa</button></div>
-<div class="robot"><div class="bot">🔎</div><h3>SCOUT</h3><p>Pesquisa</p><button onclick="ask('Pesquisa e analisa este tema.')">Dar tarefa</button></div>
-<div class="robot"><div class="bot">💶</div><h3>LEDGER</h3><p>Finanças</p><button onclick="ask('Analisa custos, receitas e riscos.')">Dar tarefa</button></div>
-<div class="robot"><div class="bot">📈</div><h3>NOVA</h3><p>Vendas</p><button onclick="ask('Cria um plano para conseguir clientes e vender mais.')">Dar tarefa</button></div>
-<div class="robot"><div class="bot">⚙️</div><h3>ORBIT</h3><p>Operações</p><button onclick="ask('Organiza as tarefas por prioridade.')">Dar tarefa</button></div>
-</div>
-<h2>Dar uma ordem ao escritório</h2>
-<textarea id="task" rows="4" placeholder="Escreve aqui o que queres que a IA faça..."></textarea>
-<button onclick="command()">ENVIAR ORDEM À IA</button>
-<p>Esta versão abre o Google para pesquisar e o ChatGPT para ajudar com as tarefas. Não executa trabalho autonomamente em segundo plano.</p>
-</main>
+*{box-sizing:border-box}html{min-height:100%;scroll-behavior:smooth}body{margin:0;min-height:100vh;background:#080d1b;color:#f4f7ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch}header{padding:26px 16px;background:linear-gradient(135deg,#111d32,#172d4b);border-bottom:1px solid #2b4568}h1{margin:0;color:#65efff;letter-spacing:3px;font-size:clamp(28px,7vw,42px)}header p,p{color:#bdcbe0;line-height:1.45}main{width:min(100%,1000px);margin:auto;padding:18px 14px 40px}h2{margin:26px 0 14px;color:#65efff;font-size:22px}h3{margin:8px 0;color:#e8f6ff}input,textarea{width:100%;min-width:0;padding:14px;background:#111d32;color:white;border:1px solid #456;border-radius:10px;font-size:16px}textarea{resize:vertical}button{cursor:pointer;padding:13px 15px;margin:4px;background:#65efff;color:#07111f;border:0;border-radius:9px;font-weight:800;font-size:14px;min-height:44px}.searchbar{display:flex;gap:8px;align-items:stretch}.searchbar button{white-space:nowrap}.room{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px;background:#111d32;border:1px solid #233b5c;border-radius:16px}.robot{display:flex;flex-direction:column;align-items:center;padding:15px 9px;background:linear-gradient(160deg,#192943,#101b2e);border:1px solid #456;border-radius:12px;min-width:0}.bot{font-size:42px;line-height:1.25}.robot p{margin:4px 0 10px;font-size:14px}.robot button{margin-top:auto;width:100%}.commandbox{padding:14px;background:#111d32;border:1px solid #2b4568;border-radius:14px}.commandbox button{width:100%;margin:8px 0 0}.hint{font-size:13px;color:#91a6c3}.status{min-height:22px;color:#65efff;font-size:14px;margin-top:8px}@media(min-width:650px){.room{grid-template-columns:repeat(3,minmax(0,1fr))}.searchbar{max-width:760px;margin:auto}}
+</style></head><body><header><h1>ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header><main>
+<h2>Pesquisa na Google</h2><form id="searchForm" class="searchbar"><input id="search" type="search" placeholder="O que queres pesquisar?" aria-label="O que queres pesquisar?" required><button type="submit">PESQUISAR</button></form>
+<h2>A tua equipa de robôs</h2><div class="room">
+<section class="robot"><div class="bot">🤖</div><h3>ATLAS</h3><p>Estratégia e planeamento</p><button type="button" onclick="ask('ATLAS — Cria uma estratégia para o meu objetivo.')">Dar tarefa</button></section>
+<section class="robot"><div class="bot">🧠</div><h3>PIXEL</h3><p>Marketing e conteúdos</p><button type="button" onclick="ask('PIXEL — Cria um plano de marketing e conteúdos para redes sociais.')">Dar tarefa</button></section>
+<section class="robot"><div class="bot">🔎</div><h3>SCOUT</h3><p>Pesquisa e análise</p><button type="button" onclick="ask('SCOUT — Ajuda-me a pesquisar e analisar o tema que vou indicar.')">Dar tarefa</button></section>
+<section class="robot"><div class="bot">💶</div><h3>LEDGER</h3><p>Finanças e custos</p><button type="button" onclick="ask('LEDGER — Analisa custos, receitas, orçamento e riscos. Não inventes dados.')">Dar tarefa</button></section>
+<section class="robot"><div class="bot">📈</div><h3>NOVA</h3><p>Vendas e clientes</p><button type="button" onclick="ask('NOVA — Cria um plano para conseguir clientes e aumentar vendas.')">Dar tarefa</button></section>
+<section class="robot"><div class="bot">⚙️</div><h3>ORBIT</h3><p>Operações e organização</p><button type="button" onclick="ask('ORBIT — Organiza as minhas tarefas por prioridade e cria passos de execução.')">Dar tarefa</button></section>
+</div><h2>Dar uma ordem ao escritório</h2><div class="commandbox"><textarea id="task" rows="4" placeholder="Escreve aqui a tarefa que queres dar aos robôs..."></textarea><button type="button" onclick="command()">ENVIAR ORDEM À IA</button><div id="status" class="status" role="status" aria-live="polite"></div></div>
+<p class="hint">Esta versão abre a Google para pesquisar e o ChatGPT para ajudar com tarefas. Os robôs são assistentes virtuais: não trabalham autonomamente em segundo plano.</p></main>
 <script>
-document.getElementById('searchForm').addEventListener('submit',function(e){
-e.preventDefault();
-let q=document.getElementById('search').value.trim();
-if(q)window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank');
-});
-function ask(prompt){
-let task=document.getElementById('task').value.trim();
-window.open('https://chatgpt.com/?q='+encodeURIComponent(prompt+(task?' Ordem: '+task:'')),'_blank');
-}
-function command(){
-let t=document.getElementById('task').value.trim();
-if(!t){alert('Escreve primeiro uma ordem.');return;}
-ask('Ajuda-me a executar esta ordem com passos concretos: '+t);
-}
-</script>
-</body>
-</html>
+document.getElementById('searchForm').addEventListener('submit',function(e){e.preventDefault();var q=document.getElementById('search').value.trim();if(!q)return;document.getElementById('status').textContent='A abrir a pesquisa na Google…';window.location.href='https://www.google.com/search?q='+encodeURIComponent(q)});
+function ask(prompt){var task=document.getElementById('task').value.trim();var full=prompt+(task?'\n\nA minha ordem: '+task:'\n\nFaz-me as perguntas necessárias e dá passos concretos.');document.getElementById('status').textContent='A abrir o ChatGPT com a tarefa…';window.location.href='https://chatgpt.com/?q='+encodeURIComponent(full)}
+function command(){var t=document.getElementById('task').value.trim();if(!t){document.getElementById('status').textContent='Escreve primeiro uma ordem.';document.getElementById('task').focus();return}ask('És o assistente principal do meu escritório ROBOT HQ. Ajuda-me a executar esta ordem com passos concretos, prioridades e resultados verificáveis: '+t)}
+</script></body></html>
