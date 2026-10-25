@@ -62,7 +62,7 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 
 
 /* Interface simples: uma única sala com chefe e equipa */
-body>header,.office-hero,main{display:none!important}
+body>header,.office-hero{display:none!important}main{display:none}
 .game-office{display:block!important;margin:0;min-height:100vh;border:0;border-radius:0;overflow:auto;background:linear-gradient(180deg,rgba(5,13,24,.62),rgba(5,13,24,.9)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed;box-shadow:none;padding-bottom:24px}
 .game-office:before,.game-office:after{display:none}
 .game-topbar{position:sticky;top:0;background:rgba(5,13,24,.88);backdrop-filter:blur(8px);font-size:12px;padding:14px 16px}
@@ -160,13 +160,13 @@ body>header,.office-hero,main{display:none!important}
 <button type="submit" formaction="https://chat.deepseek.com/" formmethod="get" style="width:100%;padding:13px;border:1px solid #65efff;border-radius:10px;background:#10283c;color:#dffaff;font-weight:900;font-size:15px">ABRIR DEEPSEEK</button>
 </form>
 <p class="boss-status" id="bossSearchStatus" role="status" aria-live="polite">Escreve um tema e escolhe a IA. O site abre o serviço escolhido; não significa que as IAs estejam ligadas por API entre si.</p>
-<button type="button" onclick="document.getElementById('binanceConnect').scrollIntoView({behavior:'smooth',block:'start'})" style="width:100%;margin-top:12px;background:#ffd166;color:#172033">CONFIGURAR LIGAÇÃO À IA</button><p class="hint">Este botão leva às definições da ligação do ROBOT HQ. A IA só responderá dentro do site depois de o servidor e o acesso privado estarem configurados.</p>
+<button type="button" onclick="showConnectionSettings()" style="width:100%;margin-top:12px;background:#ffd166;color:#172033">CONFIGURAR LIGAÇÃO À IA</button><p class="hint">Este botão leva às definições da ligação do ROBOT HQ. A IA só responderá dentro do site depois de o servidor e o acesso privado estarem configurados.</p>
 </div>
 </section>
 
 <main>
 
-<section id="binanceConnect"><h2>🔐 LIGAÇÃO À IA DO ROBOT HQ</h2>
+<section id="binanceConnect"><button type="button" class="secondary" onclick="returnToOffice()" style="width:100%;margin-bottom:10px">← VOLTAR AO ESCRITÓRIO</button><h2>🔐 LIGAÇÃO À IA DO ROBOT HQ</h2>
 <p class="muted">Configuração do servidor que liga o Chefe Supremo à IA. URL do Worker já preenchida automaticamente. O token é privado e não deve ser partilhado. A consulta Binance Testnet é opcional e só funciona após configurar o servidor.</p>
 <label for="workerUrl" style="display:block;margin:6px 0">URL do Cloudflare Worker</label><input id="workerUrl" type="url" placeholder="https://o-teu-worker.o-teu-subdominio.workers.dev" autocomplete="url">
 <label for="robotToken" style="display:block;margin:6px 0">Token de acesso ROBOT HQ (não é a chave Binance)</label><input id="robotToken" type="password" placeholder="Token configurado como secret no Cloudflare" autocomplete="off">
@@ -376,6 +376,8 @@ function clearBinanceConnection(){try{localStorage.removeItem(BINANCE_CONFIG_KEY
 async function checkBinanceWorker(){const url=document.getElementById('workerUrl').value.trim().replace(/\/$/,'');const status=document.getElementById('binanceConnectStatus');if(!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/i.test(url)){status.textContent='Introduz primeiro a URL do Worker publicada no Cloudflare.';return}status.textContent='A testar o servidor…';try{const r=await fetch(url+'/health');const d=await r.json();if(!r.ok||!d.ok)throw new Error('Resposta inesperada');status.textContent='Servidor acessível. Modo informado pelo servidor: '+d.mode+'. Negociação ativada: '+(d.tradingEnabled?'sim':'não')+'.'}catch(e){status.textContent='Não foi possível contactar o Worker. Confirma a publicação, a URL e as regras CORS.'}}
 async function readBinanceAccount(){const c={url:document.getElementById('workerUrl').value.trim().replace(/\/$/,''),token:document.getElementById('robotToken').value.trim()};const status=document.getElementById('binanceConnectStatus'),out=document.getElementById('binanceAccountResult');if(!c.url||!c.token){status.textContent='Preenche URL do Worker e token privado.';return}status.textContent='A consultar conta Spot Testnet…';out.textContent='A aguardar resposta…';try{const r=await fetch(c.url+'/api/account',{headers:{'X-Robot-Token':c.token}});const d=await r.json();if(!r.ok)throw new Error(d.error||('HTTP '+r.status));out.replaceChildren();const p=document.createElement('p');p.textContent='Modo: '+d.mode+' · Envio de ordens: '+(d.canPlaceOrders?'disponível':'desativado');out.append(p);(d.balances||[]).forEach(b=>{const row=document.createElement('p');row.textContent=b.asset+': disponível '+b.free+' · bloqueado '+b.locked;out.append(row)});if(!d.balances||!d.balances.length)out.append(document.createTextNode('Nenhum saldo não-zero devolvido.'));status.textContent='Ligação autenticada à conta Testnet confirmada; apenas leitura.'}catch(e){out.textContent='A consulta falhou. Confirma os secrets do Worker, o token privado e as chaves Testnet.';status.textContent='Conta não confirmada: '+e.message}}
 function binanceChecklist(){const boxes=[...document.querySelectorAll('#binance input[type="checkbox"]')];const count=boxes.filter(x=>x.checked).length;const el=document.getElementById('binanceStatus');if(el)el.textContent='Estado: NÃO LIGADO. Checklist visual: '+count+' de '+boxes.length+' itens assinalados. Isto não verifica nem ativa a integração.'}
+function showConnectionSettings(){const main=document.querySelector('main');if(!main)return;main.style.display='block';[...main.children].forEach(el=>{el.style.display=el.id==='binanceConnect'?'block':'none'});const target=document.getElementById('binanceConnect');if(target)target.scrollIntoView({behavior:'smooth',block:'start'});loadBinanceConfig();}
+function returnToOffice(){const main=document.querySelector('main');if(main){main.style.display='none';[...main.children].forEach(el=>el.style.display='');}window.scrollTo({top:0,behavior:'smooth'});}
 function freePlan(){document.getElementById('planStatus').textContent='Plano grátis selecionado. Podes continuar a usar as funções atuais do site; tarefas guardadas apenas neste navegador.'}
 function proPlan(){document.getElementById('planStatus').textContent='Obrigado pelo interesse! O ROBOT HQ Pro ainda não está à venda: não existem contas de utilizador, cobrança recorrente ou pagamentos ligados. Não foi cobrado qualquer valor. O próximo passo é configurar autenticação, um serviço de pagamentos e alojamento adequado.'}
 
