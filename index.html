@@ -20,6 +20,16 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 .office-copy p{margin:0;color:#e2efff;max-width:600px}
 .office-bots{font-size:27px;letter-spacing:5px;margin-top:9px}
 @media(min-width:650px){.office-hero img{height:340px}.office-copy{padding:26px}}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.plan{border:1px solid #365475;border-radius:13px;padding:14px;background:#0b1729;min-width:0}
+.plan.pro{border:2px solid var(--cyan);background:linear-gradient(160deg,#142d48,#0b1729)}
+.plan-price{font-size:27px;font-weight:900;color:var(--cyan);margin:8px 0}
+.plan ul{padding-left:18px;font-size:13px;line-height:1.7;color:#d7e5f7}
+.plan button{width:100%}
+.plan-note{border:1px solid #6b5933;background:#2b2414;color:#ffe8ad;border-radius:10px;padding:10px;font-size:12px;line-height:1.5;margin-top:10px}
+@media(max-width:430px){.pricing-grid{grid-template-columns:1fr}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <section class="office-hero" aria-label="Escritório virtual ROBOT HQ">
@@ -28,6 +38,20 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 </section>
 
 <main>
+
+<section id="planos"><h2>💳 Planos ROBOT HQ</h2>
+<p class="muted">Começa gratuitamente. O plano Pro é uma proposta comercial; contas de utilizador e pagamentos ainda não estão ativados.</p>
+<div class="pricing-grid">
+<div class="plan"><span class="pill">GRÁTIS</span><div class="plan-price">0 €<small style="font-size:13px;color:var(--muted)"> / mês</small></div>
+<ul><li>Usar o painel de tarefas neste iPhone</li><li>Abrir pesquisas e assistentes de IA externos</li><li>Experimentar os robôs especialistas</li><li>Sem cartão de pagamento</li></ul>
+<button class="secondary" type="button" onclick="freePlan()">Continuar grátis</button></div>
+<div class="plan pro"><span class="pill">PRO — PROPOSTA</span><div class="plan-price">9,99 €<small style="font-size:13px;color:var(--muted)"> / mês</small></div>
+<ul><li>Plano futuro com mais utilizações</li><li>Ferramentas avançadas quando forem implementadas</li><li>Fluxos de trabalho e projetos</li><li>Suporte prioritário, se vier a ser disponibilizado</li></ul>
+<button type="button" onclick="proPlan()">Tenho interesse no Pro</button></div>
+</div>
+<div id="planStatus" class="plan-note" role="status" aria-live="polite">Demonstração: não são recolhidos dados de pagamento. Não introduzas dados bancários neste site.</div>
+</section>
+
 <section><h2>📊 Estado do escritório</h2><div class="stats"><div class="stat"><span class="num" id="total">0</span><small>Tarefas</small></div><div class="stat"><span class="num" id="open">0</span><small>Por concluir</small></div><div class="stat"><span class="num" id="done">0</span><small>Concluídas</small></div></div><p class="hint">As tarefas são guardadas neste navegador, neste iPhone.</p></section>
 <div class="twocol">
 <section><h2>🧠 Pesquisa com Inteligência Artificial</h2><form id="searchForm" class="row"><input id="search" type="search" placeholder="O que queres que a IA investigue?" required><button>Pesquisar com IA</button></form><p class="hint">A pesquisa principal abre o Perplexity, um serviço de pesquisa com IA. Também podes enviar perguntas ao ChatGPT ou abrir outras IAs. São serviços externos; não significa que APIs estejam ligadas dentro do site.</p><div class="actions"><button class="secondary" onclick="quickSearch('fornecedores de pneus por grosso Portugal')" type="button">IA: fornecedores de pneus</button><button class="secondary" onclick="quickSearch('ideias de negócio rentáveis Portugal')" type="button">IA: ideias de negócio</button><button class="secondary" onclick="askProvider('chatgpt')" type="button">Enviar ao ChatGPT</button><button class="secondary" onclick="askProvider('gemini')" type="button">Enviar ao Gemini</button><button class="secondary" onclick="askProvider('claude')" type="button">Abrir Claude</button><button class="secondary" onclick="askProvider('deepseek')" type="button">Abrir DeepSeek</button></div></section>
@@ -65,5 +89,9 @@ function toggle(id){const t=tasks.find(x=>x.id===id);if(t)t.done=!t.done;persist
 function removeTask(id){tasks=tasks.filter(x=>x.id!==id);persist();render()}
 function clearDone(){tasks=tasks.filter(x=>!x.done);persist();render()}
 function render(){document.getElementById('total').textContent=tasks.length;document.getElementById('open').textContent=tasks.filter(x=>!x.done).length;document.getElementById('done').textContent=tasks.filter(x=>x.done).length;const list=document.getElementById('taskList');list.replaceChildren();const shown=tasks.filter(x=>filter==='all'||(filter==='open'&&!x.done)||(filter==='done'&&x.done));document.getElementById('empty').style.display=shown.length?'none':'block';shown.forEach(t=>{const item=document.createElement('div');item.className='taskitem';const top=document.createElement('div');top.className='tasktop';const cb=document.createElement('input');cb.type='checkbox';cb.checked=t.done;cb.setAttribute('aria-label','Marcar tarefa concluída');cb.addEventListener('change',()=>toggle(t.id));const txt=document.createElement('div');txt.className='tasktext'+(t.done?' done':'');txt.textContent=t.text;top.append(cb,txt);const meta=document.createElement('div');meta.className='taskmeta';meta.textContent='Criada: '+t.created;const buttons=document.createElement('div');buttons.className='taskbuttons';const open=document.createElement('button');open.className='secondary';open.textContent='Abrir no ChatGPT';open.onclick=()=>openAI('Ajuda-me a executar esta tarefa: '+t.text);const del=document.createElement('button');del.className='danger';del.textContent='Apagar';del.onclick=()=>removeTask(t.id);buttons.append(open,del);item.append(top,meta,buttons);list.append(item)})}
+
+function freePlan(){document.getElementById('planStatus').textContent='Plano grátis selecionado. Podes continuar a usar as funções atuais do site; tarefas guardadas apenas neste navegador.'}
+function proPlan(){document.getElementById('planStatus').textContent='Obrigado pelo interesse! O ROBOT HQ Pro ainda não está à venda: não existem contas de utilizador, cobrança recorrente ou pagamentos ligados. Não foi cobrado qualquer valor. O próximo passo é configurar autenticação, um serviço de pagamentos e alojamento adequado.'}
+
 render();
 </script></body></html>
