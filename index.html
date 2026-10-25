@@ -60,6 +60,27 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 @media(max-width:390px){.game-team{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.game-office{min-height:530px}}
 @media(prefers-reduced-motion:reduce){.game-member{animation:none}}
 
+
+/* Interface simples: uma única sala com chefe e equipa */
+body>header,.office-hero,main{display:none!important}
+.game-office{display:block!important;margin:0;min-height:100vh;border:0;border-radius:0;overflow:auto;background:linear-gradient(180deg,rgba(5,13,24,.62),rgba(5,13,24,.9)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed;box-shadow:none;padding-bottom:24px}
+.game-office:before,.game-office:after{display:none}
+.game-topbar{position:sticky;top:0;background:rgba(5,13,24,.88);backdrop-filter:blur(8px);font-size:12px;padding:14px 16px}
+.game-team{grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px;margin:0 auto;gap:14px;padding:24px 12px 12px}
+.game-member{padding:10px 3px;border:1px solid #ffffff24;border-radius:14px;background:rgba(5,16,30,.72);backdrop-filter:blur(4px)}
+.game-avatar{height:100px}
+.game-label{display:block;color:#fff;font-weight:900;font-size:12px;margin-top:4px}
+.game-role{display:block;color:#c5e9f7;font-size:10px}
+.game-caption{display:none}
+.boss-console{position:relative;z-index:3;width:min(700px,calc(100% - 24px));margin:14px auto 20px;padding:16px;background:rgba(5,14,27,.93);border:1px solid #69e7ff88;border-radius:18px;box-shadow:0 12px 35px #0008}
+.boss-title{font-size:18px;font-weight:900;color:#70efff;margin-bottom:5px}
+.boss-console p{font-size:12px;color:#c0d2e7;margin:0 0 12px}
+.boss-console select,.boss-console textarea{display:block;width:100%;padding:12px;margin:8px 0;background:#091426;color:white;border:1px solid #365779;border-radius:10px;font:inherit;font-size:15px}
+.boss-console textarea{min-height:76px;resize:vertical}
+.boss-console button{width:100%;padding:13px;border:0;border-radius:10px;background:#65efff;color:#061421;font-weight:900;font-size:15px}
+.boss-status{font-size:12px!important;margin-top:10px!important;color:#bfeaff!important;overflow-wrap:anywhere}
+@media(max-width:430px){.game-team{gap:7px;padding:14px 7px 8px}.game-member{padding:8px 1px}.game-avatar{transform:scale(.88);margin-bottom:-8px}.game-role{font-size:9px}.game-label{font-size:11px}.boss-console{padding:13px}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <section class="office-hero" aria-label="Escritório virtual ROBOT HQ">
@@ -76,7 +97,29 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 <div class="game-member green"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">LEDGER</span><span class="game-role">Finanças</span></div>
 <div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">NOVA</span><span class="game-role">Vendas</span></div>
 <div class="game-member"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">ORBIT</span><span class="game-role">Operações</span></div>
-</div><div class="game-caption">Personagens animadas estilo jogo. Os departamentos abaixo continuam disponíveis para receber tarefas.</div>
+<div class="game-member purple"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">TYRE</span><span class="game-role">Pneus</span></div>
+<div class="game-member green"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">BUILDER</span><span class="game-role">Tecnologia</span></div>
+<div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">CONNECT</span><span class="game-role">Ferramentas</span></div>
+</div>
+<div class="boss-console">
+<div class="boss-title">CHEFE ROBOT HQ</div>
+<p>Escreve uma ordem e escolhe quem vai tratar dela.</p>
+<select id="bossWorker" aria-label="Escolher funcionário">
+<option value="TEAM">Toda a equipa</option>
+<option value="ATLAS">ATLAS — Estratégia</option>
+<option value="PIXEL">PIXEL — Marketing</option>
+<option value="SCOUT">SCOUT — Pesquisa</option>
+<option value="LEDGER">LEDGER — Finanças</option>
+<option value="NOVA">NOVA — Vendas</option>
+<option value="ORBIT">ORBIT — Operações</option>
+<option value="TYRE">TYRE — Pneus</option>
+<option value="BUILDER">BUILDER — Sites e aplicações</option>
+<option value="CONNECT">CONNECT — Ferramentas</option>
+</select>
+<textarea id="bossOrder" placeholder="Ex.: Pesquisa fornecedores de pneus baratos em Lisboa..." aria-label="Ordem para a equipa"></textarea>
+<button type="button" onclick="sendBossOrder()">DAR ORDEM À EQUIPA</button>
+<p class="boss-status" id="bossStatus" role="status" aria-live="polite">A equipa está à espera da tua ordem.</p>
+</div>
 </section>
 
 <main>
@@ -203,6 +246,7 @@ function persist(){try{localStorage.setItem(KEY,JSON.stringify(tasks));return tr
 function statusMsg(s){document.getElementById('status').textContent=s}
 function taskText(){return document.getElementById('task').value.trim()}
 function saveTask(){const text=taskText();if(!text){statusMsg('Escreve primeiro uma ordem.');document.getElementById('task').focus();return}tasks.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2),text,done:false,created:new Date().toLocaleString('pt-PT')});persist();render();document.getElementById('task').value='';statusMsg('Tarefa guardada neste iPhone.')}
+function sendBossOrder(){const who=document.getElementById('bossWorker').value;const order=document.getElementById('bossOrder').value.trim();const status=document.getElementById('bossStatus');if(!order){status.textContent='Escreve primeiro a ordem do chefe.';return}const roles={ATLAS:'estratégia e planeamento',PIXEL:'marketing e redes sociais',SCOUT:'pesquisa e fornecedores',LEDGER:'custos, receitas e margens',NOVA:'vendas e clientes',ORBIT:'operações e organização',TYRE:'pneus e oficina de pneus',BUILDER:'sites e aplicações',CONNECT:'ferramentas e processos'};const prompt=who==='TEAM'?'És a equipa ROBOT HQ. Divide esta ordem pelos especialistas adequados, executa a análise com passos concretos e identifica o que precisa de pesquisa real: ':'És '+who+', especialista em '+roles[who]+'. Trata esta ordem com passos concretos, fontes quando necessárias e sem inventar dados: ';status.textContent='A abrir o assistente com a ordem do chefe. A execução será feita no ChatGPT, não em segundo plano.';window.location.href='https://chatgpt.com/?q='+encodeURIComponent(prompt+order)}
 function sendAI(){const t=taskText();if(!t){statusMsg('Escreve primeiro uma ordem.');return}openAI('És o assistente principal do ROBOT HQ. Ajuda-me a executar esta ordem com passos concretos, prioridades e resultados verificáveis: '+t)}
 function assign(name,instruction){const extra=taskText();openAI(name+' — '+instruction+(extra?'\n\nContexto: '+extra:'\n\nComeça com passos concretos; se faltar informação essencial, faz uma pergunta direta.'))}
 function openAI(q){statusMsg('A abrir o ChatGPT com a ordem…');window.location.href='https://chatgpt.com/?q='+encodeURIComponent(q)}
