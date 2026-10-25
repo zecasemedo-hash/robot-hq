@@ -137,18 +137,7 @@ body>header,.office-hero{display:none!important}main{display:none}
 <div class="office-copy"><h2>Um escritório inteiro a trabalhar para ti</h2><p>Estratégia, pesquisa, marketing, finanças e organização num só lugar.</p><div class="office-bots" aria-label="Equipa de robôs">🤖 🧠 🔎 💶 ⚙️ 🤖</div></div><div class="actions" style="justify-content:center;margin-top:10px"><button type="button" onclick="document.getElementById('scoutMissionSystem').scrollIntoView({behavior:'smooth',block:'start'})">Abrir Centro SCOUT</button></div>
 </section>
 
-<section class="panel" id="imageLab" style="margin:18px 0;padding:18px;border:1px solid #29415f;border-radius:18px;background:#111d32">
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div style="font-size:32px">🎨</div><div><h2 style="margin:0">ROBOT HQ — Estúdio de Imagens</h2><p style="margin:5px 0;color:#aebed5">Descreve a imagem e pede ao gerador para a criar.</p></div></div>
-  <label for="imagePrompt" style="display:block;margin:14px 0 6px">O que queres criar?</label>
-  <textarea id="imagePrompt" rows="4" placeholder="Ex.: fotografia realista de um Mercedes clássico num stand moderno, luz cinematográfica..." style="box-sizing:border-box;width:100%;padding:12px;border-radius:12px;border:1px solid #29415f;background:#080d1b;color:#fff;font:inherit"></textarea>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-    <button type="button" id="makeImageBtn" onclick="robotHQMakeImage()">Gerar imagem</button>
-    <button type="button" id="openImageBtn" onclick="robotHQOpenImage()" disabled>Abrir imagem</button>
-    <button type="button" onclick="document.getElementById('imagePrompt').value=''">Limpar texto</button>
-  </div>
-  <p id="imageStatus" role="status" style="color:#aebed5;margin:10px 0">Serviço experimental gratuito de terceiros. Pode ter limites ou ficar indisponível; não exige chave API no site.</p>
-  <div id="imageResultWrap" style="display:none;margin-top:14px"><img id="imageResult" alt="Imagem gerada pelo Estúdio ROBOT HQ" style="display:block;width:100%;max-width:850px;max-height:75vh;object-fit:contain;border-radius:14px;background:#080d1b"><p style="color:#aebed5;font-size:13px">No iPhone, mantém o dedo sobre a imagem para a guardar, se o Safari apresentar essa opção.</p></div>
-</section>
+
 
 <section class="game-office" id="virtualOffice" aria-label="Equipa ROBOT HQ num escritório executivo com robôs metálicos">
 <div class="game-topbar"><span>● ESCRITÓRIO VIRTUAL</span><span>9 ROBÔS ESPECIALISTAS · SALA DE OPERAÇÕES</span></div>
@@ -366,6 +355,22 @@ body>header,.office-hero{display:none!important}main{display:none}
 <section><h2>📋 As minhas tarefas</h2><div class="actions"><button class="secondary" onclick="setFilter('all')">Todas</button><button class="secondary" onclick="setFilter('open')">Por concluir</button><button class="secondary" onclick="setFilter('done')">Concluídas</button></div><div id="taskList"></div><p class="hint" id="empty">Ainda não tens tarefas guardadas.</p><div class="actions"><button class="secondary" type="button" onclick="exportTasks()">Exportar cópia das tarefas</button><button class="secondary" type="button" onclick="document.getElementById('importTasksFile').click()">Importar cópia</button></div><input id="importTasksFile" type="file" accept="application/json,.json" style="display:none" onchange="importTasks(event)"><p class="hint">Faz uma cópia das tarefas antes de mudares de navegador ou telemóvel. A importação substitui as tarefas atuais.</p><button class="danger" onclick="clearDone()">Apagar concluídas</button></section>
 <section><h2>📱 Adicionar ao ecrã principal</h2><p class="muted">No Safari do iPhone, toca em Partilhar e escolhe “Adicionar ao ecrã principal”.</p><p class="hint">Importante: os robôs preparam pedidos para o ChatGPT e abrem pesquisas. Não executam tarefas autonomamente nem trabalham em segundo plano. As tarefas guardadas ficam no navegador.</p></section>
 </main><footer>ROBOT HQ · Otimizado para iPhone Safari</footer>
+
+
+<!-- Estúdio de Imagens movido para o fundo da página -->
+<section class="panel" id="imageLab" style="margin:18px 0;padding:18px;border:1px solid #29415f;border-radius:18px;background:#111d32">
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div style="font-size:32px">🎨</div><div><h2 style="margin:0">ROBOT HQ — Estúdio de Imagens</h2><p style="margin:5px 0;color:#aebed5">Descreve a imagem e pede ao gerador para a criar.</p></div></div>
+  <label for="imagePrompt" style="display:block;margin:14px 0 6px">O que queres criar?</label>
+  <textarea id="imagePrompt" rows="4" placeholder="Ex.: fotografia realista de um Mercedes clássico num stand moderno, luz cinematográfica..." style="box-sizing:border-box;width:100%;padding:12px;border-radius:12px;border:1px solid #29415f;background:#080d1b;color:#fff;font:inherit"></textarea>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+    <button type="button" id="makeImageBtn" onclick="robotHQMakeImage()">Gerar imagem</button>
+    <button type="button" id="openImageBtn" onclick="robotHQOpenImage()" disabled>Abrir imagem</button>
+    <button type="button" onclick="document.getElementById('imagePrompt').value=''">Limpar texto</button>
+  </div>
+  <p id="imageStatus" role="status" style="color:#aebed5;margin:10px 0">Serviço experimental gratuito de terceiros. Pode ter limites ou ficar indisponível; não exige chave API no site.</p>
+  <div id="imageResultWrap" style="display:none;margin-top:14px"><img id="imageResult" alt="Imagem gerada pelo Estúdio ROBOT HQ" style="display:block;width:100%;max-width:850px;max-height:75vh;object-fit:contain;border-radius:14px;background:#080d1b"><p style="color:#aebed5;font-size:13px">No iPhone, mantém o dedo sobre a imagem para a guardar, se o Safari apresentar essa opção.</p></div>
+</section>
+
 <script>
 const KEY='robot-hq-tasks-v2';let tasks=[];let filter='all';
 try{tasks=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(tasks))tasks=[]}catch(e){tasks=[]}
