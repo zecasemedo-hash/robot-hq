@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROBOT HQ</title>
+<style>
+body{margin:0;background:#080d1b;color:white;font-family:Arial;text-align:center}
+header{padding:25px;background:#111d32}
+h1{color:#65efff;letter-spacing:4px}
+main{max-width:900px;margin:auto;padding:16px}
+input,textarea{box-sizing:border-box;width:100%;padding:14px;background:#111d32;color:white;border:1px solid #456;border-radius:10px;font-size:16px}
+button{padding:12px;margin:5px;background:#65efff;color:#07111f;border:0;border-radius:9px;font-weight:bold}
+.room{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px;background:#111d32;border-radius:14px}
+.robot{padding:15px;background:#192943;border:1px solid #456;border-radius:12px}
+.bot{font-size:40px}
+h2,h3{color:#65efff}
+p{color:#bdcbe0}
+@media(min-width:650px){.room{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header>
+<h1>ROBOT HQ</h1>
+<p>O teu escritório virtual de inteligência artificial</p>
+</header>
+<main>
+<h2>Pesquisa Google</h2>
+<form id="searchForm">
+<input id="search" placeholder="O que queres pesquisar?" required>
+<button type="submit">PESQUISAR</button>
+</form>
+<h2>A tua equipa de robôs</h2>
+<div class="room">
+<div class="robot"><div class="bot">🤖</div><h3>ATLAS</h3><p>Estratégia</p><button onclick="ask('Cria uma estratégia para o meu objetivo.')">Dar tarefa</button></div>
+<div class="robot"><div class="bot">🧠</div><h3>PIXEL</h3><p>Marketing</p><button onclick="ask('Cria um plano de marketing e redes sociais.')">Dar tarefa</button></div>
+<div class="robot"><div class="bot">🔎</div><h3>SCOUT</h3><p>Pesquisa</p><button onclick="ask('Pesquisa e analisa este tema.')">Dar tarefa</button></div>
+<div class="robot"><div class="bot">💶</div><h3>LEDGER</h3><p>Finanças</p><button onclick="ask('Analisa custos, receitas e riscos.')">Dar tarefa</button></div>
+<div class="robot"><div class="bot">📈</div><h3>NOVA</h3><p>Vendas</p><button onclick="ask('Cria um plano para conseguir clientes e vender mais.')">Dar tarefa</button></div>
+<div class="robot"><div class="bot">⚙️</div><h3>ORBIT</h3><p>Operações</p><button onclick="ask('Organiza as tarefas por prioridade.')">Dar tarefa</button></div>
+</div>
+<h2>Dar uma ordem ao escritório</h2>
+<textarea id="task" rows="4" placeholder="Escreve aqui o que queres que a IA faça..."></textarea>
+<button onclick="command()">ENVIAR ORDEM À IA</button>
+<p>Esta versão abre o Google para pesquisar e o ChatGPT para ajudar com as tarefas. Não executa trabalho autonomamente em segundo plano.</p>
+</main>
+<script>
+document.getElementById('searchForm').addEventListener('submit',function(e){
+e.preventDefault();
+let q=document.getElementById('search').value.trim();
+if(q)window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank');
+});
+function ask(prompt){
+let task=document.getElementById('task').value.trim();
+window.open('https://chatgpt.com/?q='+encodeURIComponent(prompt+(task?' Ordem: '+task:'')),'_blank');
+}
+function command(){
+let t=document.getElementById('task').value.trim();
+if(!t){alert('Escreve primeiro uma ordem.');return;}
+ask('Ajuda-me a executar esta ordem com passos concretos: '+t);
+}
+</script>
+</body>
+</html>
