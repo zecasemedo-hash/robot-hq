@@ -30,11 +30,53 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 .plan-note{border:1px solid #6b5933;background:#2b2414;color:#ffe8ad;border-radius:10px;padding:10px;font-size:12px;line-height:1.5;margin-top:10px}
 @media(max-width:430px){.pricing-grid{grid-template-columns:1fr}}
 
+
+/* Escritório estilo videojogo com personagens robôs */
+.game-office{position:relative;overflow:hidden;margin:14px 0 18px;border:1px solid #365779;border-radius:18px;min-height:370px;background:linear-gradient(#173b5b 0 48%,#17283d 48%);box-shadow:inset 0 0 45px #07101d}
+.game-office:before{content:"";position:absolute;inset:0 0 46%;background:repeating-linear-gradient(90deg,transparent 0 70px,#8bdcf522 72px 74px),linear-gradient(#204c6a,#11263e);border-bottom:7px solid #456783}
+.game-office:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-8%;height:45%;background:repeating-linear-gradient(0deg,#31465b 0 2px,transparent 2px 32px),repeating-linear-gradient(90deg,#31465b 0 2px,transparent 2px 48px),linear-gradient(135deg,#20364d,#0d1929);transform:perspective(240px) rotateX(7deg)}
+.game-topbar{position:relative;z-index:2;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:12px;background:#071423d9;color:#dff7ff;font-size:10px;font-weight:900;letter-spacing:1px}
+.game-team{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:20px 9px 10px}
+.game-member{text-align:center;min-width:0;animation:robotFloat 3s ease-in-out infinite}.game-member:nth-child(2){animation-delay:-.7s}.game-member:nth-child(3){animation-delay:-1.2s}.game-member:nth-child(4){animation-delay:-1.7s}.game-member:nth-child(5){animation-delay:-.4s}.game-member:nth-child(6){animation-delay:-2s}
+.game-avatar{height:105px;position:relative;width:100%;max-width:105px;margin:auto;filter:drop-shadow(0 7px 4px #0007)}
+.game-head{position:absolute;z-index:2;top:2px;left:calc(50% - 23px);width:46px;height:43px;border:3px solid #e3fbff;border-radius:14px 14px 17px 17px;background:linear-gradient(135deg,#d8fbff,#49a7cb);box-shadow:inset -6px -5px #287298}
+.game-head:before{content:"";position:absolute;left:7px;right:7px;top:12px;height:11px;border-radius:7px;background:#071a2b;box-shadow:inset 0 0 0 2px #345b77}
+.game-head:after{content:"";position:absolute;left:12px;top:16px;width:4px;height:4px;border-radius:50%;background:#72f6ff;box-shadow:13px 0 #72f6ff,0 0 7px #72f6ff,13px 0 7px #72f6ff}
+.game-body{position:absolute;bottom:8px;left:calc(50% - 26px);width:52px;height:52px;border:3px solid #b8f7ff;border-radius:13px 13px 7px 7px;background:linear-gradient(90deg,#2b6591,#64d7e9 52%,#28628d);box-shadow:inset -7px 0 #17476c}
+.game-body:after{content:"";position:absolute;left:16px;top:9px;width:12px;height:14px;border-radius:3px;background:#081d31;border:2px solid #8cf4ff;box-shadow:0 0 8px #65efff}
+.game-arm{position:absolute;bottom:24px;width:14px;height:37px;border:2px solid #a9eaff;border-radius:9px;background:linear-gradient(90deg,#2a638e,#a6efff)}
+.game-arm.left{left:calc(50% - 39px);transform:rotate(17deg)}.game-arm.right{right:calc(50% - 39px);transform:rotate(-17deg)}
+.game-leg{position:absolute;bottom:0;width:16px;height:23px;border:2px solid #b8f7ff;border-radius:5px;background:linear-gradient(90deg,#204e76,#8bdff0)}
+.game-leg.left{left:calc(50% - 16px)}.game-leg.right{right:calc(50% - 16px)}
+.game-member.gold .game-head,.game-member.gold .game-body,.game-member.gold .game-arm,.game-member.gold .game-leg{background:linear-gradient(135deg,#ffdf91,#b87929);border-color:#fff0bd}
+.game-member.purple .game-head,.game-member.purple .game-body,.game-member.purple .game-arm,.game-member.purple .game-leg{background:linear-gradient(135deg,#d6b8ff,#7750b7);border-color:#f0e5ff}
+.game-member.green .game-head,.game-member.green .game-body,.game-member.green .game-arm,.game-member.green .game-leg{background:linear-gradient(135deg,#b6ffd9,#288c73);border-color:#d7ffed}
+.game-desk{position:relative;width:82%;height:18px;margin:0 auto 8px;background:linear-gradient(#66839b,#203b56);border:1px solid #8ca9bd;border-radius:3px;box-shadow:0 5px #10243a}
+.game-desk:before{content:"";position:absolute;left:12%;top:-17px;width:30px;height:15px;border:2px solid #85dff1;border-radius:3px;background:linear-gradient(135deg,#071728,#1b5573);box-shadow:0 0 10px #65efff55}
+.game-label{display:inline-block;padding:4px 7px;border:1px solid #426987;border-radius:6px;background:#071523ed;color:#eafaff;font-size:10px;font-weight:900;letter-spacing:.7px}
+.game-role{display:block;color:#c5d8e8;font-size:9px;margin:3px 0 0}
+.game-caption{position:relative;z-index:2;text-align:center;color:#d5e9f7;font-size:11px;padding:8px 12px 14px}
+@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(max-width:390px){.game-team{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.game-office{min-height:530px}}
+@media(prefers-reduced-motion:reduce){.game-member{animation:none}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <section class="office-hero" aria-label="Escritório virtual ROBOT HQ">
 <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1800&amp;q=85" alt="Escritório moderno com postos de trabalho" fetchpriority="high">
 <div class="office-copy"><h2>Um escritório inteiro a trabalhar para ti</h2><p>Estratégia, pesquisa, marketing, finanças e organização num só lugar.</p><div class="office-bots" aria-label="Equipa de robôs">🤖 🧠 🔎 💶 ⚙️ 🤖</div></div>
+</section>
+
+<section class="game-office" id="virtualOffice" aria-label="Equipa ROBOT HQ em escritório estilo videojogo">
+<div class="game-topbar"><span>● ESCRITÓRIO VIRTUAL</span><span>9 ROBÔS ESPECIALISTAS</span></div>
+<div class="game-team">
+<div class="game-member"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">ATLAS</span><span class="game-role">Estratégia</span></div>
+<div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">PIXEL</span><span class="game-role">Marketing</span></div>
+<div class="game-member purple"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">SCOUT</span><span class="game-role">Pesquisa</span></div>
+<div class="game-member green"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">LEDGER</span><span class="game-role">Finanças</span></div>
+<div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">NOVA</span><span class="game-role">Vendas</span></div>
+<div class="game-member"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">ORBIT</span><span class="game-role">Operações</span></div>
+</div><div class="game-caption">Personagens animadas estilo jogo. Os departamentos abaixo continuam disponíveis para receber tarefas.</div>
 </section>
 
 <main>
