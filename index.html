@@ -336,17 +336,22 @@ function paperFmt(n){return Number(n).toLocaleString('pt-PT',{minimumFractionDig
 function paperStatus(s){const el=document.getElementById('paperStatus');if(el)el.textContent=s}
 async function loadPaperPrices(){paperStatus('A consultar preços públicos da Binance…');try{const symbols=['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','LINKUSDT'];const res=await fetch('https://api.binance.com/api/v3/ticker/price?symbols='+encodeURIComponent(JSON.stringify(symbols)));if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();data.forEach(x=>{const p=Number(x.price);if(Number.isFinite(p)&&p>0)paper.prices[x.symbol]=p});paperSave();renderPaper();paperStatus('Preços públicos atualizados em '+new Date().toLocaleTimeString('pt-PT')+'. Simulação continua virtual.')}catch(e){paperStatus('Não consegui atualizar os preços. Verifica a ligação ou tenta mais tarde. Nenhuma ordem foi enviada.');renderPaper()}}
 function paperTotal(){return paper.cash+Object.entries(paper.positions).reduce((s,[sym,pos])=>s+pos.qty*(paper.prices[sym]||pos.avg),0)}
-function renderPaper(){const cash=document.getElementById('paperCash');if(!cash)return;const total=paperTotal();cash.textContent=paperFmt(paper.cash)+' USDT';document.getElementById('paperValue').textContent=paperFmt(total)+' USDT';document.getElementById('paperPnl').textContent=(total>=50?'+':'')+paperFmt(total-50)+' USDT';
-const prices=document.getElementById('paperPrices');prices.replaceChildren();['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','LINKUSDT'].forEach(sym=>{const d=document.createElement('div');d.className='taskitem';d.textContent=sym+': '+(paper.prices[sym]?'const boxes=[...document.querySelectorAll('#binance input[type="checkbox"]')];const count=boxes.filter(x=>x.checked).length;const el=document.getElementById('binanceStatus');if(el)el.textContent='Estado: NÃO LIGADO. Checklist visual: '+count+' de '+boxes.length+' itens assinalados. Isto não verifica nem ativa a integração.'}
-function freePlan(){document.getElementById('planStatus').textContent='Plano grátis selecionado. Podes continuar a usar as funções atuais do site; tarefas guardadas apenas neste navegador.'}
-function proPlan(){document.getElementById('planStatus').textContent='Obrigado pelo interesse! O ROBOT HQ Pro ainda não está à venda: não existem contas de utilizador, cobrança recorrente ou pagamentos ligados. Não foi cobrado qualquer valor. O próximo passo é configurar autenticação, um serviço de pagamentos e alojamento adequado.'}
-
-render();
-renderLeads();
-loadBinanceConfig();
-</script></body></html>+Number(paper.prices[sym]).toLocaleString('en-US',{maximumFractionDigits:8}):'sem preço disponível');prices.append(d)});
-const pos=document.getElementById('paperPositions');pos.replaceChildren();const entries=Object.entries(paper.positions).filter(([s,p])=>p.qty>0);if(!entries.length){pos.textContent='Ainda não há posições virtuais.'}else entries.forEach(([s,p])=>{const d=document.createElement('div');d.className='taskitem';d.textContent=s+' — quantidade '+p.qty.toPrecision(8)+'; custo médio '+p.avg.toPrecision(8)+' USDT; valor estimado '+paperFmt(p.qty*(paper.prices[s]||p.avg))+' USDT';pos.append(d)});
-const hist=document.getElementById('paperHistory');hist.replaceChildren();if(!paper.history.length){hist.textContent='Ainda não há ordens simuladas.'}else paper.history.slice(0,10).forEach(h=>{const d=document.createElement('div');d.className='taskitem';d.textContent=h.date+' · '+h.side+' '+h.symbol+' · '+paperFmt(h.amount)+' USDT · '+h.note;hist.append(d)})}
+function renderPaper(){
+ const cash=document.getElementById('paperCash');if(!cash)return;
+ const total=paperTotal();
+ cash.textContent=paperFmt(paper.cash)+' USDT';
+ document.getElementById('paperValue').textContent=paperFmt(total)+' USDT';
+ document.getElementById('paperPnl').textContent=(total>=50?'+':'')+paperFmt(total-50)+' USDT';
+ const prices=document.getElementById('paperPrices');prices.replaceChildren();
+ ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','LINKUSDT'].forEach(sym=>{const d=document.createElement('div');d.className='taskitem';d.textContent=sym+': '+(paper.prices[sym]?Number(paper.prices[sym]).toLocaleString('en-US',{maximumFractionDigits:8}):'sem preço disponível');prices.append(d)});
+ const pos=document.getElementById('paperPositions');pos.replaceChildren();
+ const entries=Object.entries(paper.positions).filter(([sym,p])=>p.qty>0);
+ if(!entries.length){pos.textContent='Ainda não há posições virtuais.'}
+ else entries.forEach(([sym,p])=>{const d=document.createElement('div');d.className='taskitem';d.textContent=sym+' — quantidade '+p.qty.toPrecision(8)+'; custo médio '+p.avg.toPrecision(8)+' USDT; valor estimado '+paperFmt(p.qty*(paper.prices[sym]||p.avg))+' USDT';pos.append(d)});
+ const hist=document.getElementById('paperHistory');hist.replaceChildren();
+ if(!paper.history.length){hist.textContent='Ainda não há ordens simuladas.'}
+ else paper.history.slice(0,10).forEach(h=>{const d=document.createElement('div');d.className='taskitem';d.textContent=h.date+' · '+h.side+' '+h.symbol+' · '+paperFmt(h.amount)+' USDT · '+h.note;hist.append(d)});
+}
 function paperOrder(side){const sym=document.getElementById('paperSymbol').value;const amount=Number(document.getElementById('paperAmount').value);const price=paper.prices[sym];if(!price){paperStatus('Atualiza os preços antes de simular uma ordem.');return}if(!Number.isFinite(amount)||amount<1||amount>5){paperStatus('Usa um valor entre 1 e 5 USDT por ordem virtual.');return}if(side==='BUY'){if(amount>paper.cash){paperStatus('Saldo virtual insuficiente.');return}const qty=amount/price;const old=paper.positions[sym]||{qty:0,avg:price};const totalCost=old.qty*old.avg+amount;old.qty+=qty;old.avg=totalCost/old.qty;paper.positions[sym]=old;paper.cash-=amount;paper.history.unshift({date:new Date().toLocaleString('pt-PT'),side,symbol:sym,amount,note:'simulada; preço '+price})}else{const pos=paper.positions[sym];if(!pos||pos.qty<=0){paperStatus('Não tens uma posição virtual desta moeda para vender.');return}const qty=Math.min(pos.qty,amount/price);const proceeds=qty*price;paper.cash+=proceeds;pos.qty-=qty;if(pos.qty<1e-12)delete paper.positions[sym];paper.history.unshift({date:new Date().toLocaleString('pt-PT'),side,symbol:sym,amount:proceeds,note:'simulada; preço '+price})}paperSave();renderPaper();paperStatus('Ordem simulada localmente. Nenhuma ordem foi enviada à Binance.')}
 function resetPaper(){if(!confirm('Reiniciar saldo, posições e histórico virtuais?'))return;paper={cash:50,positions:{},history:[],prices:paper.prices};paperSave();renderPaper();paperStatus('Simulação reiniciada com 50 USDT virtuais.')}
 const BINANCE_CONFIG_KEY='robot-hq-binance-worker-config-v1';
