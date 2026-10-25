@@ -14,7 +14,7 @@ const BASE = "https://testnet.binance.vision";
 function cors(origin) {
   return {
     "Access-Control-Allow-Origin": origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : "null",
-    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, X-Robot-Token",
     "Vary": "Origin",
     "Content-Type": "application/json; charset=utf-8",
@@ -40,6 +40,33 @@ export default {
       return new Response(null, { status: 204, headers: cors(origin) });
     }
     if (origin && origin !== ALLOWED_ORIGIN) return json({ error: "Origin not allowed" }, 403, origin);
+    if (url.pathname === "/api/chat") {
+      if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, origin);
+      if (!env.ROBOT_ACCESS_TOKEN || request.headers.get("X-Robot-Token") !== env.ROBOT_ACCESS_TOKEN) {
+        return json({ error: "Unauthorized: verifica o token privado do ROBOT HQ." }, 401, origin);
+      }
+      if (!env.AI || typeof env.AI.run !== "function") {
+        return json({ error: "Workers AI ainda não está ligado a este Worker. No Cloudflare, adiciona o binding AI com o nome AI." }, 503, origin);
+      }
+      let body;
+      try { body = await request.json(); } catch { return json({ error: "Pedido inválido." }, 400, origin); }
+      const messages = Array.isArray(body.messages) ? body.messages.slice(-16) : [];
+      if (!messages.length || messages.some(m => !m || !["user","assistant"].includes(m.role) || typeof m.content !== "string")) {
+        return json({ error: "A conversa está vazia ou tem formato inválido." }, 400, origin);
+      }
+      const system = typeof body.system === "string" ? body.system.slice(0, 6000) : "És o assistente do ROBOT HQ. Responde em português de Portugal.";
+      try {
+        const result = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+          messages: [{ role: "system", content: system }, ...messages.map(m => ({ role: m.role, content: m.content.slice(0, 6000) }))],
+          max_tokens: 1200
+        });
+        const response = result && result.response ? result.response : "";
+        if (!response) return json({ error: "O modelo não devolveu resposta." }, 502, origin);
+        return json({ ok: true, response, model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast" }, 200, origin);
+      } catch (error) {
+        return json({ error: "Workers AI não conseguiu responder. Verifica se o modelo está disponível e se a conta tem acesso." }, 502, origin);
+      }
+    }
     if (request.method !== "GET") return json({ error: "Method not allowed" }, 405, origin);
 
     if (url.pathname === "/health") {
