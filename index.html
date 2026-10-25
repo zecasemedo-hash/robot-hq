@@ -12,8 +12,21 @@ input,textarea{width:100%;min-width:0;padding:13px;background:#091426;color:whit
 button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);color:#07111f;border:0;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;font-family:inherit}button.secondary{background:#213653;color:#eaf6ff;border:1px solid #3a5475}button.danger{background:#492737;color:#ffd8e2;border:1px solid #81445c}
 .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.robot{display:flex;flex-direction:column;align-items:center;text-align:center;padding:12px 8px;background:linear-gradient(160deg,#192943,#101b2e);border:1px solid #344b6a;border-radius:12px;min-width:0}.bot{font-size:36px}.robot p{font-size:13px;color:var(--muted);margin:3px 0 10px;flex:1}.robot button{width:100%;font-size:12px;padding:10px 5px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.stat{background:#0b1729;border:1px solid #253d5b;border-radius:10px;padding:10px 5px;text-align:center}.num{display:block;color:var(--cyan);font-size:23px;font-weight:900}.stat small{color:var(--muted);font-size:11px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.actions button{width:100%}.status{min-height:20px;color:#79f2b2;font-size:13px;margin-top:8px}.taskitem{border:1px solid #304765;background:#0b1729;border-radius:10px;padding:10px;margin-top:8px}.tasktop{display:flex;gap:8px;align-items:flex-start}.tasktop input{width:20px;min-width:20px;margin-top:3px;accent-color:#79f2b2}.tasktext{flex:1;overflow-wrap:anywhere}.done{text-decoration:line-through;color:#91a6c3}.taskmeta{font-size:11px;color:var(--muted);margin-top:6px}.taskbuttons{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.taskbuttons button{font-size:12px;min-height:36px;padding:8px}.pill{display:inline-block;background:#143d3a;color:#a5ffdc;border:1px solid #26745d;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:800}footer{text-align:center;color:#8498b5;font-size:12px;padding:8px 14px 24px}
 @media(min-width:650px){main{padding:20px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+
+.office-hero{position:relative;overflow:hidden;border:1px solid #355273;border-radius:16px;margin:14px 0;background:#0b1729;min-height:230px}
+.office-hero img{display:block;width:100%;height:260px;object-fit:cover;opacity:.68}
+.office-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;background:linear-gradient(0deg,rgba(5,10,22,.96),rgba(5,10,22,.05) 90%)}
+.office-copy h2{font-size:clamp(21px,5vw,32px);color:#fff;margin:0 0 7px;text-shadow:0 2px 10px #000}
+.office-copy p{margin:0;color:#e2efff;max-width:600px}
+.office-bots{font-size:27px;letter-spacing:5px;margin-top:9px}
+@media(min-width:650px){.office-hero img{height:340px}.office-copy{padding:26px}}
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
+<section class="office-hero" aria-label="Escritório virtual ROBOT HQ">
+<img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1800&amp;q=85" alt="Escritório moderno com postos de trabalho" fetchpriority="high">
+<div class="office-copy"><h2>Um escritório inteiro a trabalhar para ti</h2><p>Estratégia, pesquisa, marketing, finanças e organização num só lugar.</p><div class="office-bots" aria-label="Equipa de robôs">🤖 🧠 🔎 💶 ⚙️ 🤖</div></div>
+</section>
+
 <main>
 <section><h2>📊 Estado do escritório</h2><div class="stats"><div class="stat"><span class="num" id="total">0</span><small>Tarefas</small></div><div class="stat"><span class="num" id="open">0</span><small>Por concluir</small></div><div class="stat"><span class="num" id="done">0</span><small>Concluídas</small></div></div><p class="hint">As tarefas são guardadas neste navegador, neste iPhone.</p></section>
 <div class="twocol">
