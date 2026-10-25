@@ -81,6 +81,29 @@ body>header,.office-hero,main{display:none!important}
 .boss-status{font-size:12px!important;margin-top:10px!important;color:#bfeaff!important;overflow-wrap:anywhere}
 @media(max-width:430px){.game-team{gap:7px;padding:14px 7px 8px}.game-member{padding:8px 1px}.game-avatar{transform:scale(.88);margin-bottom:-8px}.game-role{font-size:9px}.game-label{font-size:11px}.boss-console{padding:13px}}
 
+
+/* Sala de robôs com postos de trabalho e estado de tarefa */
+.game-office{background:linear-gradient(180deg,rgba(5,13,24,.28),rgba(5,13,24,.72)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed!important}
+.game-team{max-width:1000px;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:24px 14px}
+.game-member{position:relative;min-height:190px;padding:12px 6px 14px;background:linear-gradient(180deg,rgba(10,25,43,.86),rgba(4,13,25,.96));border:1px solid #9bd9f34a;box-shadow:0 10px 24px #0007;transition:transform .25s,border-color .25s}
+.game-member:before{content:"";position:absolute;left:12%;right:12%;bottom:48px;height:34px;border:2px solid #5d7d96;border-radius:5px 5px 2px 2px;background:linear-gradient(135deg,#162f49,#071321);box-shadow:inset 0 0 0 2px #0a1522,0 8px 0 -3px #7d98ad}
+.game-member:after{content:"";position:absolute;left:39%;right:39%;bottom:37px;height:11px;background:#6e899e;border-radius:0 0 5px 5px;box-shadow:0 7px 0 2px #263f55}
+.game-member .game-avatar{z-index:2;height:100px}
+.game-member .game-desk{position:relative;z-index:1;margin:4px auto 10px;width:72%;height:7px;border-radius:3px;background:linear-gradient(90deg,#263f55,#8da8ba,#263f55);box-shadow:0 6px 0 #0a1726}
+.game-member .game-label,.game-member .game-role{position:relative;z-index:3}
+.game-member .game-label{font-size:12px;letter-spacing:.6px}
+.game-member.is-working{border-color:#66f4ff;box-shadow:0 0 0 2px #65efff2b,0 0 24px #65efff45;animation:robotWork 1.15s ease-in-out infinite}
+.game-member.is-working:before{background:linear-gradient(135deg,#0c3b51,#071321);box-shadow:inset 0 0 0 2px #0a1522,0 0 14px #65efff66,0 8px 0 -3px #7d98ad}
+.game-member.is-working:before{border-color:#65efff}
+.game-member.is-working .game-avatar{animation:robotFloat .65s ease-in-out infinite}
+.game-member.is-working .game-desk{background:#65efff;box-shadow:0 6px 0 #0a1726,0 0 12px #65efff}
+@keyframes robotWork{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.boss-live{display:flex;align-items:center;gap:8px;margin:10px 0 14px;color:#c8f8ff;font-size:12px}
+.boss-live-dot{width:8px;height:8px;border-radius:50%;background:#65efff;box-shadow:0 0 12px #65efff;animation:livePulse 1.2s infinite}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.25}}
+.boss-status{line-height:1.5}
+@media(max-width:430px){.game-team{gap:8px;padding:15px 7px}.game-member{min-height:170px;padding:9px 2px}.game-member:before{left:8%;right:8%;height:28px;bottom:46px}.game-member:after{bottom:35px}.game-member .game-avatar{transform:scale(.86);margin-bottom:-8px}.game-member .game-desk{width:80%;margin-top:2px}.game-member .game-label{font-size:10px}.game-member .game-role{font-size:9px}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <section class="office-hero" aria-label="Escritório virtual ROBOT HQ">
@@ -104,6 +127,7 @@ body>header,.office-hero,main{display:none!important}
 <div class="boss-console">
 <div class="boss-title">CHEFE ROBOT HQ</div>
 <p>Escreve uma ordem e escolhe quem vai tratar dela.</p>
+<div class="boss-live"><span class="boss-live-dot"></span><span>PAINEL DE COMANDO · pronto para receber ordens</span></div>
 <select id="bossWorker" aria-label="Escolher funcionário">
 <option value="TEAM">Toda a equipa</option>
 <option value="ATLAS">ATLAS — Estratégia</option>
@@ -246,7 +270,7 @@ function persist(){try{localStorage.setItem(KEY,JSON.stringify(tasks));return tr
 function statusMsg(s){document.getElementById('status').textContent=s}
 function taskText(){return document.getElementById('task').value.trim()}
 function saveTask(){const text=taskText();if(!text){statusMsg('Escreve primeiro uma ordem.');document.getElementById('task').focus();return}tasks.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2),text,done:false,created:new Date().toLocaleString('pt-PT')});persist();render();document.getElementById('task').value='';statusMsg('Tarefa guardada neste iPhone.')}
-function sendBossOrder(){const who=document.getElementById('bossWorker').value;const order=document.getElementById('bossOrder').value.trim();const status=document.getElementById('bossStatus');if(!order){status.textContent='Escreve primeiro a ordem do chefe.';return}const roles={ATLAS:'estratégia e planeamento',PIXEL:'marketing e redes sociais',SCOUT:'pesquisa e fornecedores',LEDGER:'custos, receitas e margens',NOVA:'vendas e clientes',ORBIT:'operações e organização',TYRE:'pneus e oficina de pneus',BUILDER:'sites e aplicações',CONNECT:'ferramentas e processos'};const prompt=who==='TEAM'?'És a equipa ROBOT HQ. Divide esta ordem pelos especialistas adequados, executa a análise com passos concretos e identifica o que precisa de pesquisa real: ':'És '+who+', especialista em '+roles[who]+'. Trata esta ordem com passos concretos, fontes quando necessárias e sem inventar dados: ';status.textContent='A abrir o assistente com a ordem do chefe. A execução será feita no ChatGPT, não em segundo plano.';window.location.href='https://chatgpt.com/?q='+encodeURIComponent(prompt+order)}
+function sendBossOrder(){const who=document.getElementById('bossWorker').value;const order=document.getElementById('bossOrder').value.trim();const status=document.getElementById('bossStatus');if(!order){status.textContent='Escreve primeiro a ordem do chefe.';return}const roles={ATLAS:'estratégia e planeamento',PIXEL:'marketing e redes sociais',SCOUT:'pesquisa e fornecedores',LEDGER:'custos, receitas e margens',NOVA:'vendas e clientes',ORBIT:'operações e organização',TYRE:'pneus e oficina de pneus',BUILDER:'sites e aplicações',CONNECT:'ferramentas e processos'};document.querySelectorAll('.game-member').forEach((el,i)=>{el.classList.toggle('is-working',who==='TEAM'||el.querySelector('.game-label').textContent===who)});const names=who==='TEAM'?'equipa completa':who;status.textContent='ORDEM ATRIBUÍDA A '+names+'. A abrir o ChatGPT para processar o pedido. O brilho dos postos é apenas um indicador visual, não prova execução em segundo plano.';const prompt=who==='TEAM'?'És a equipa ROBOT HQ. Divide esta ordem pelos especialistas adequados, executa a análise com passos concretos e identifica o que precisa de pesquisa real: ':'És '+who+', especialista em '+roles[who]+'. Trata esta ordem com passos concretos, fontes quando necessárias e sem inventar dados: ';const url='https://chatgpt.com/?q='+encodeURIComponent(prompt+order);const win=window.open(url,'_blank');if(!win){status.textContent+=' Se o Safari bloquear a nova janela, toca novamente no botão ou permite pop-ups para este site.';}} 
 function sendAI(){const t=taskText();if(!t){statusMsg('Escreve primeiro uma ordem.');return}openAI('És o assistente principal do ROBOT HQ. Ajuda-me a executar esta ordem com passos concretos, prioridades e resultados verificáveis: '+t)}
 function assign(name,instruction){const extra=taskText();openAI(name+' — '+instruction+(extra?'\n\nContexto: '+extra:'\n\nComeça com passos concretos; se faltar informação essencial, faz uma pergunta direta.'))}
 function openAI(q){statusMsg('A abrir o ChatGPT com a ordem…');window.location.href='https://chatgpt.com/?q='+encodeURIComponent(q)}
