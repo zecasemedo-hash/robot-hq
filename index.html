@@ -157,7 +157,7 @@ body>header,.office-hero,main{display:none!important}
 <button type="button" onclick="sendBossOrder()">DAR ORDEM À EQUIPA</button>
 <p class="boss-status" id="bossStatus" role="status" aria-live="polite">A equipa está à espera da tua ordem.</p>
 <div id="bossChat" aria-live="polite" style="display:grid;gap:10px;margin-top:12px;max-height:45vh;overflow:auto"></div>
-<p class="hint">A conversa dentro do site precisa do Worker Cloudflare com Workers AI ativo. Sem essa ligação, o site não finge que respondeu.</p>
+<p class="hint">Para ativar o chat: publica o ficheiro cloudflare-worker.js como Cloudflare Worker, liga o binding Workers AI com o nome AI e cria o secret ROBOT_ACCESS_TOKEN. Depois, nesta página, na secção “Ligar à Binance Testnet”, guarda a URL do Worker e o mesmo token privado. O chat usa essa configuração. Sem isso, não inventa respostas.</p>
 </div>
 </section>
 
