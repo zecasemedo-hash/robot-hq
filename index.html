@@ -105,6 +105,27 @@ body>header,.office-hero{display:none!important}main{display:none}
 @media(max-width:430px){.game-team{gap:8px;padding:15px 7px}.game-member{min-height:170px;padding:9px 2px}.game-member:before{left:8%;right:8%;height:28px;bottom:46px}.game-member:after{bottom:35px}.game-member .game-avatar{transform:scale(.86);margin-bottom:-8px}.game-member .game-desk{width:80%;margin-top:2px}.game-member .game-label{font-size:10px}.game-member .game-role{font-size:9px}}
 
 .boss-search-buttons{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}.boss-search-buttons button{width:100%;padding:12px;border:1px solid #65efff;background:#10283c;color:#dffaff;border-radius:10px;font-weight:800;font-size:14px}.boss-search-buttons button:first-child{background:#65efff;color:#061421}.boss-console input[type=search]{box-sizing:border-box}@media(min-width:520px){.boss-search-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ROBOT HQ — atualização visual: escritório executivo e robôs metálicos */
+.game-office{background:linear-gradient(180deg,rgba(3,9,17,.18),rgba(3,9,17,.72)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed!important}
+.game-topbar{background:rgba(3,10,18,.82);border-bottom:1px solid #d9e7f333;backdrop-filter:blur(12px);letter-spacing:.7px}
+.game-member{background:linear-gradient(155deg,rgba(20,32,45,.82),rgba(3,10,18,.95));border:1px solid #d7e5f044;box-shadow:0 16px 30px #0008,inset 0 1px #ffffff12;backdrop-filter:blur(7px)}
+.game-avatar{filter:drop-shadow(0 12px 8px #000a)}
+.game-head,.game-member.gold .game-head,.game-member.purple .game-head,.game-member.green .game-head{width:48px;height:45px;left:calc(50% - 24px);top:1px;border:2px solid #dce5ec!important;border-radius:17px 17px 13px 13px!important;background:linear-gradient(135deg,#f4f7f9 0%,#a8b5c0 28%,#465563 55%,#d6dfe5 76%,#667784 100%)!important;box-shadow:inset -4px -5px 8px #17232e,inset 3px 2px 5px #fff9,0 2px 5px #0008!important}
+.game-head:before{left:5px;right:5px;top:12px;height:14px;border-radius:5px;background:linear-gradient(180deg,#07131e,#132b3b)!important;box-shadow:inset 0 0 0 1px #647987,0 0 8px #4dd9f655!important}
+.game-head:after{left:12px;top:17px;width:5px;height:4px;border-radius:2px;background:#9beaff!important;box-shadow:13px 0 #9beaff,0 0 7px #71e7ff,13px 0 7px #71e7ff!important}
+.game-body,.game-member.gold .game-body,.game-member.purple .game-body,.game-member.green .game-body{width:50px;height:49px;left:calc(50% - 25px);bottom:8px;border:2px solid #dce5ec!important;border-radius:12px 12px 7px 7px!important;background:linear-gradient(100deg,#374754 0%,#e0e7eb 24%,#8797a3 44%,#f0f3f5 58%,#667785 78%,#263744 100%)!important;box-shadow:inset 0 -8px 10px #17232e,inset 0 2px 3px #fff9,0 4px 7px #0007!important}
+.game-body:after{left:17px;top:10px;width:12px;height:13px;border:1px solid #728d9e!important;border-radius:3px;background:linear-gradient(135deg,#102334,#31576a)!important;box-shadow:0 0 8px #5fe5ff44!important}
+.game-arm,.game-member.gold .game-arm,.game-member.purple .game-arm,.game-member.green .game-arm{width:13px;height:37px;border:2px solid #d7e0e6!important;border-radius:8px!important;background:linear-gradient(90deg,#344451,#e1e7eb 38%,#7e8e9a 68%,#263642)!important;box-shadow:inset 0 0 3px #fff8,0 2px 4px #0008}
+.game-arm:after{content:"";position:absolute;bottom:7px;left:1px;right:1px;height:5px;border-radius:4px;background:#334b5b;box-shadow:0 0 0 1px #d3dce2}
+.game-leg,.game-member.gold .game-leg,.game-member.purple .game-leg,.game-member.green .game-leg{width:14px;height:23px;border:2px solid #d7e0e6!important;border-radius:4px 4px 5px 5px!important;background:linear-gradient(90deg,#354754,#dce4e9 40%,#788a97 70%,#293a46)!important;box-shadow:inset 0 0 3px #fff7}
+.game-desk{background:linear-gradient(#d2dbe2,#667c8c 45%,#243847)!important;border-color:#b5c4ce!important;box-shadow:0 5px 0 #15232e,0 9px 14px #0006!important}
+.game-desk:before{border:2px solid #8eabbc!important;background:linear-gradient(135deg,#07131e,#15384d 55%,#07131e)!important;box-shadow:inset 0 0 0 1px #d0e4ed33,0 0 12px #65dfff22!important}
+.game-label{border:1px solid #a9c0cf66;background:#06111de8;color:#f0f6fa}
+.game-role{color:#d3e0e9}
+.game-member.is-working .game-avatar{filter:drop-shadow(0 0 10px #65efff66)}
+@media(prefers-reduced-motion:reduce){.game-member,.game-member.is-working .game-avatar{animation:none!important}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <nav aria-label="Atalhos ROBOT HQ" style="position:sticky;top:0;z-index:9999;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px;background:#080d1bf2;border-bottom:1px solid #29415f">
@@ -129,8 +150,8 @@ body>header,.office-hero{display:none!important}main{display:none}
   <div id="imageResultWrap" style="display:none;margin-top:14px"><img id="imageResult" alt="Imagem gerada pelo Estúdio ROBOT HQ" style="display:block;width:100%;max-width:850px;max-height:75vh;object-fit:contain;border-radius:14px;background:#080d1b"><p style="color:#aebed5;font-size:13px">No iPhone, mantém o dedo sobre a imagem para a guardar, se o Safari apresentar essa opção.</p></div>
 </section>
 
-<section class="game-office" id="virtualOffice" aria-label="Equipa ROBOT HQ em escritório estilo videojogo">
-<div class="game-topbar"><span>● ESCRITÓRIO VIRTUAL</span><span>9 ROBÔS ESPECIALISTAS · PESQUISA IA ATUALIZADA</span></div>
+<section class="game-office" id="virtualOffice" aria-label="Equipa ROBOT HQ num escritório executivo com robôs metálicos">
+<div class="game-topbar"><span>● ESCRITÓRIO VIRTUAL</span><span>9 ROBÔS ESPECIALISTAS · SALA DE OPERAÇÕES</span></div>
 <div class="game-team">
 <div class="game-member"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">ATLAS</span><span class="game-role">Estratégia</span></div>
 <div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">PIXEL</span><span class="game-role">Marketing</span></div>
