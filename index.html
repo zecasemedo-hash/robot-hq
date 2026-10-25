@@ -160,14 +160,14 @@ body>header,.office-hero,main{display:none!important}
 <button type="submit" formaction="https://chat.deepseek.com/" formmethod="get" style="width:100%;padding:13px;border:1px solid #65efff;border-radius:10px;background:#10283c;color:#dffaff;font-weight:900;font-size:15px">ABRIR DEEPSEEK</button>
 </form>
 <p class="boss-status" id="bossSearchStatus" role="status" aria-live="polite">Escreve um tema e escolhe a IA. O site abre o serviço escolhido; não significa que as IAs estejam ligadas por API entre si.</p>
-<p class="hint">Para ativar o chat: publica o ficheiro cloudflare-worker.js como Cloudflare Worker, liga o binding Workers AI com o nome AI e cria o secret ROBOT_ACCESS_TOKEN. Depois, nesta página, na secção “Ligar à Binance Testnet”, guarda a URL do Worker e o mesmo token privado. O chat usa essa configuração. Sem isso, não inventa respostas.</p>
+<button type="button" onclick="document.getElementById('binanceConnect').scrollIntoView({behavior:'smooth',block:'start'})" style="width:100%;margin-top:12px;background:#ffd166;color:#172033">CONFIGURAR LIGAÇÃO À IA</button><p class="hint">Este botão leva às definições da ligação do ROBOT HQ. A IA só responderá dentro do site depois de o servidor e o acesso privado estarem configurados.</p>
 </div>
 </section>
 
 <main>
 
-<section id="binanceConnect"><h2>🔐 Ligar à Binance Testnet</h2>
-<p class="muted">Esta área liga o painel ao Worker privado que está no repositório. Primeiro tens de publicar o Worker no Cloudflare e adicionar os segredos no servidor. A chave API da Binance nunca deve ser escrita aqui.</p>
+<section id="binanceConnect"><h2>🔐 LIGAÇÃO À IA DO ROBOT HQ</h2>
+<p class="muted">Configuração do servidor que liga o Chefe Supremo à IA. URL do Worker já preenchida automaticamente. O token é privado e não deve ser partilhado. A consulta Binance Testnet é opcional e só funciona após configurar o servidor.</p>
 <label for="workerUrl" style="display:block;margin:6px 0">URL do Cloudflare Worker</label><input id="workerUrl" type="url" placeholder="https://o-teu-worker.o-teu-subdominio.workers.dev" autocomplete="url">
 <label for="robotToken" style="display:block;margin:6px 0">Token de acesso ROBOT HQ (não é a chave Binance)</label><input id="robotToken" type="password" placeholder="Token configurado como secret no Cloudflare" autocomplete="off">
 <div class="actions"><button type="button" onclick="saveBinanceConnection()">Guardar configuração neste iPhone</button><button type="button" class="secondary" onclick="checkBinanceWorker()">Testar servidor</button></div>
