@@ -444,12 +444,18 @@ function clearHQChat(){hqChat=[];try{localStorage.removeItem(HQ_CHAT_KEY)}catch(
 renderHQChat();
 function sendAI(){const t=taskText();if(!t){statusMsg('Escreve primeiro uma ordem.');return}openAI('És o assistente principal do ROBOT HQ. Ajuda-me a executar esta ordem com passos concretos, prioridades e resultados verificáveis: '+t)}
 function assign(name,instruction){const extra=taskText();openAI(name+' — '+instruction+(extra?'\n\nContexto: '+extra:'\n\nComeça com passos concretos; se faltar informação essencial, faz uma pergunta direta.'))}
-function openAI(q){statusMsg('A abrir o ChatGPT com a ordem…');window.location.href='https://chatgpt.com/?q='+encodeURIComponent(q)}
+function openExternal(url,label){
+  const win=window.open(url,'_blank','noopener,noreferrer');
+  if(!win){statusMsg('O Safari bloqueou a nova janela. Toca neste link para continuar: '+url);return false}
+  statusMsg('Pedido enviado para '+label+'. A pesquisa decorre no serviço externo, não dentro do ROBOT HQ.');
+  return true;
+}
+function openAI(q){openExternal('https://chatgpt.com/?q='+encodeURIComponent(q),'ChatGPT')}
 function clearSearchFields(){['bossSearch','search'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});}
 window.addEventListener('pageshow',clearSearchFields);
-function quickSearch(q){clearSearchFields();window.location.href='https://www.perplexity.ai/search?q='+encodeURIComponent(q)}
-function askProvider(provider){const q=document.getElementById('search').value.trim()||taskText();if(!q){statusMsg('Escreve primeiro o que queres investigar.');return}const prompt='Pesquisa e analisa este tema. Usa fontes, indica datas e separa factos de estimativas: '+q;clearSearchFields();const urls={chatgpt:'https://chatgpt.com/?q='+encodeURIComponent(prompt),perplexity:'https://www.perplexity.ai/search?q='+encodeURIComponent(prompt),gemini:'https://gemini.google.com/app?q='+encodeURIComponent(prompt),claude:'https://claude.ai/',deepseek:'https://www.deepseek.com/'};statusMsg('A abrir '+provider+'. A pesquisa foi limpa do campo do ROBOT HQ.');window.location.href=urls[provider]}
-document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('search').value.trim();if(q){document.getElementById('search').value='';quickSearch(q)}});
+function quickSearch(q){const url='https://www.perplexity.ai/search?q='+encodeURIComponent(q);clearSearchFields();openExternal(url,'Perplexity')}
+function askProvider(provider){const q=document.getElementById('search').value.trim()||taskText();if(!q){statusMsg('Escreve primeiro o que queres investigar.');return}const prompt='Pesquisa e analisa este tema. Usa fontes, indica datas e separa factos de estimativas: '+q;const urls={chatgpt:'https://chatgpt.com/?q='+encodeURIComponent(prompt),perplexity:'https://www.perplexity.ai/search?q='+encodeURIComponent(prompt),gemini:'https://gemini.google.com/app?q='+encodeURIComponent(prompt),claude:'https://claude.ai/',deepseek:'https://www.deepseek.com/'};clearSearchFields();openExternal(urls[provider]||urls.perplexity,provider)}
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('search').value.trim();if(q)quickSearch(q);else statusMsg('Escreve primeiro o que queres investigar.')});
 function setFilter(f){filter=f;render()}
 function toggle(id){const t=tasks.find(x=>x.id===id);if(t)t.done=!t.done;persist();render()}
 function removeTask(id){tasks=tasks.filter(x=>x.id!==id);persist();render()}
@@ -563,7 +569,19 @@ function robotHQMakeImage(){
   const img=document.getElementById('imageResult');
   const wrap=document.getElementById('imageResultWrap');
   img.onload=()=>{wrap.style.display='block';status.textContent='Imagem recebida. Podes abrir ou guardar no iPhone.';btn.disabled=false;document.getElementById('openImageBtn').disabled=false;};
-  img.onerror=()=>{status.textContent='Não foi possível obter a imagem. O serviço gratuito pode estar indisponível ou limitado. Tenta novamente mais tarde.';btn.disabled=false;};
+  img.onerror=()=>{
+    status.textContent='O serviço de imagem não respondeu. Podes tentar novamente ou abrir o ChatGPT para gerar a imagem fora do site.';
+    btn.disabled=false;
+    const wrap=document.getElementById('imageResultWrap');
+    let fallback=document.getElementById('imageFallbackLink');
+    if(!fallback){
+      fallback=document.createElement('button');fallback.id='imageFallbackLink';fallback.type='button';
+      fallback.className='secondary';fallback.textContent='Abrir ChatGPT para gerar a imagem';
+      fallback.style.marginTop='8px';
+      fallback.onclick=()=>openExternal('https://chatgpt.com/?q='+encodeURIComponent('Cria esta imagem: '+prompt),'ChatGPT');
+      status.insertAdjacentElement('afterend',fallback);
+    }
+  };
   wrap.style.display='block';img.removeAttribute('src');img.src=robotHQCurrentImageUrl;
 }
 function robotHQOpenImage(){if(robotHQCurrentImageUrl)window.open(robotHQCurrentImageUrl,'_blank','noopener');}
