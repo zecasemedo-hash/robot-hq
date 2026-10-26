@@ -1,0 +1,27 @@
+name: Validate ROBOT HQ JavaScript
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Extract inline JavaScript and check syntax
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script\\b[^>]*>([\\s\\S]*?)</script>", html, re.I)
+          scripts = [s for s in scripts if s.strip()]
+          if not scripts:
+              raise SystemExit("No inline JavaScript found")
+          Path("/tmp/robot-hq.js").write_text(scripts[0], encoding="utf-8")
+          print(f"Checking {len(scripts[0])} JavaScript characters")
+          PY
+          node --check /tmp/robot-hq.js
