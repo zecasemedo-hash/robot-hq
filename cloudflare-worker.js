@@ -70,7 +70,7 @@ export default {
     if (request.method !== "GET") return json({ error: "Method not allowed" }, 405, origin);
 
     if (url.pathname === "/health") {
-      return json({ ok: true, mode: "SPOT_TESTNET_READ_ONLY", tradingEnabled: false }, 200, origin);
+      return json({ ok: true, mode: "SPOT_TESTNET_READ_ONLY", tradingEnabled: false, aiConfigured: !!(env.AI && typeof env.AI.run === "function"), chatEndpoint: "/api/chat" }, 200, origin);
     }
     if (url.pathname === "/api/price") {
       const symbol = (url.searchParams.get("symbol") || "BTCUSDT").toUpperCase();
