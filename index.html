@@ -126,6 +126,16 @@ body>header,.office-hero{display:none!important}main{display:none}
 .game-member.is-working .game-avatar{filter:drop-shadow(0 0 10px #65efff66)}
 @media(prefers-reduced-motion:reduce){.game-member,.game-member.is-working .game-avatar{animation:none!important}}
 
+/* Painel vivo da sala de operações */
+.live-floor{position:relative;z-index:3;margin:0 10px 14px;padding:12px;border:1px solid #d4ad39;background:#06111dee;border-radius:12px;box-shadow:0 0 22px #e6b83d1a;color:#d6e9f6}
+.live-floor-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;color:#ffe49a;font-size:11px;font-weight:900;letter-spacing:1px}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#64f5a5;box-shadow:0 0 10px #64f5a5;animation:pulseLive 1.3s infinite}
+.live-task-list{display:grid;grid-template-columns:1fr;gap:7px;margin-top:10px}
+.live-task{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:8px;padding:9px;border:1px solid #29445a;background:#102234;border-radius:8px;font-size:11px}
+.live-task strong{color:#ffe28a}.live-task span:nth-child(2){color:#d6e9f6;overflow-wrap:anywhere}.live-state{color:#7df7b1;text-align:right}
+@keyframes pulseLive{50%{opacity:.35;box-shadow:0 0 2px #64f5a5}}
+@media(min-width:650px){.live-task-list{grid-template-columns:1fr 1fr}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <nav aria-label="Atalhos ROBOT HQ" style="position:sticky;top:0;z-index:9999;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px;background:#080d1bf2;border-bottom:1px solid #29415f">
@@ -151,6 +161,12 @@ body>header,.office-hero{display:none!important}main{display:none}
 <div class="game-member purple"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">TYRE</span><span class="game-role">Pneus</span></div>
 <div class="game-member green"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">BUILDER</span><span class="game-role">Tecnologia</span></div>
 <div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">CONNECT</span><span class="game-role">Ferramentas</span></div>
+</div>
+<div class="live-floor" aria-label="Painel de tarefas do escritório">
+ <div class="live-floor-head"><span><span class="live-dot"></span> PAINEL DE OPERAÇÕES</span><span id="hqLiveClock">A INICIAR…</span></div>
+ <div class="live-task-list" id="hqLiveTasks"></div>
+ <p id="hqLiveSummary" style="font-size:12px;margin:10px 0 0">A carregar tarefas deste navegador…</p>
+ <p style="font-size:11px;color:#9eb5ca;margin:5px 0 0">Estado real da fila local. Uma tarefa pendente não significa que uma IA esteja a executá-la.</p>
 </div>
 <div class="boss-console">
 <div class="boss-title">CHEFE SUPREMO · ROBOT HQ</div>
@@ -511,6 +527,13 @@ function robotHQMakeImage(){
   wrap.style.display='block';img.removeAttribute('src');img.src=robotHQCurrentImageUrl;
 }
 function robotHQOpenImage(){if(robotHQCurrentImageUrl)window.open(robotHQCurrentImageUrl,'_blank','noopener');}
+
+/* Atualiza o relógio e espelha a fila de tarefas realmente guardada neste Safari */
+(function robotHQLiveRoom(){
+ const workers=[['ATLAS','Estratégia e prioridades'],['SCOUT','Pesquisa e fontes'],['LEDGER','Custos e finanças'],['PIXEL','Marketing e conteúdos'],['NOVA','Vendas e contactos'],['ORBIT','Organização operacional'],['TYRE','Oportunidades de pneus'],['BUILDER','Sites e tecnologia'],['CONNECT','Ferramentas e ligações']];
+ function update(){const clock=document.getElementById('hqLiveClock'),root=document.getElementById('hqLiveTasks');if(clock)clock.textContent='TEMPO LOCAL · '+new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit',second:'2-digit'});if(!root)return;let all=[];try{const x=JSON.parse(localStorage.getItem('robot-hq-tasks-v2')||'[]');if(Array.isArray(x))all=x}catch(e){}const open=all.filter(t=>!t.done),done=all.filter(t=>t.done);root.replaceChildren();workers.slice(0,6).forEach((w,i)=>{const task=open[i],row=document.createElement('div');row.className='live-task';const n=document.createElement('strong');n.textContent=w[0];const d=document.createElement('span');d.textContent=task?String(task.text).slice(0,100):w[1];const st=document.createElement('span');st.className='live-state';st.textContent=task?'NA FILA':'À ESPERA';row.append(n,d,st);root.append(row)});const summary=document.getElementById('hqLiveSummary');if(summary)summary.textContent=open.length+' tarefas pendentes · '+done.length+' concluídas · '+workers.length+' especialistas virtuais'}
+ update();setInterval(update,2000);window.addEventListener('storage',update);
+})();
 
 render();
 renderLeads();
