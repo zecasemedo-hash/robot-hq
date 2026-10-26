@@ -136,6 +136,43 @@ body>header,.office-hero{display:none!important}main{display:none}
 @keyframes pulseLive{50%{opacity:.35;box-shadow:0 0 2px #64f5a5}}
 @media(min-width:650px){.live-task-list{grid-template-columns:1fr 1fr}}
 
+
+/* Substitui os cartões individuais por uma única sala de operações isométrica */
+.game-office{min-height:0!important;background:#070d15!important;border:1px solid #c9a735!important;box-shadow:0 0 28px #d4ae3022!important;overflow:hidden!important}
+.game-office:before{display:none!important}.game-office:after{display:none!important}
+.game-topbar{background:#080d15!important;color:#f8d96b!important;border-bottom:1px solid #bd9b37;letter-spacing:1.2px}
+.hq-office-scene{position:relative;height:560px;overflow:hidden;background:linear-gradient(180deg,#0b1725 0%,#152b3b 42%,#293b49 42%,#111e2a 100%);isolation:isolate}
+.hq-back-wall{position:absolute;top:0;left:0;right:0;height:43%;background:linear-gradient(90deg,#101d2a,#294352 50%,#101d2a);border-bottom:5px solid #e0b934;box-shadow:0 8px 22px #0009}
+.hq-window-row{position:absolute;left:16%;top:22%;width:54%;height:43%;display:flex;gap:5px;opacity:.8}
+.hq-window-row span{flex:1;border:2px solid #647985;background:linear-gradient(180deg,#526674,#263d4b 70%,#172632);box-shadow:inset 0 0 18px #a3d8e922}
+.hq-wall-screen{position:absolute;right:4%;top:20%;width:23%;height:49%;border:2px solid #d9b33d;background:linear-gradient(145deg,#091521,#183041);box-shadow:0 0 14px #e8bd3433;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;color:#f5d46b;font-size:clamp(9px,2vw,13px);letter-spacing:1px}
+.hq-wall-screen span{font-size:8px;color:#72edb3}.hq-wall-screen i{width:75%;height:24%;border-bottom:2px solid #5ae2a0;border-top:1px solid #4a6677;background:repeating-linear-gradient(90deg,transparent 0 12px,#67e8b533 13px 15px)}
+.hq-wall-bars{position:absolute;left:3%;top:20%;width:8%;height:48%;background:repeating-linear-gradient(180deg,#63e8a9 0 3px,transparent 3px 12px);opacity:.65}
+.hq-floor-grid{position:absolute;inset:42% -25% -22%;background:repeating-linear-gradient(0deg,#a8c0ca28 0 1px,transparent 1px 34px),repeating-linear-gradient(90deg,#a8c0ca25 0 1px,transparent 1px 43px),linear-gradient(145deg,#53616a,#182631 78%);transform:perspective(480px) rotateX(18deg);transform-origin:top center}
+.hq-workstations{position:absolute;inset:34% 4% 10%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:0 2%;perspective:600px}
+.hq-workstation{position:relative;min-width:0;transform:scale(.96);filter:drop-shadow(0 9px 7px #0008)}
+.hq-workstation:nth-child(2),.hq-workstation:nth-child(5),.hq-workstation:nth-child(8){transform:translateY(5px) scale(.93)}
+.hq-workstation:nth-child(3),.hq-workstation:nth-child(6),.hq-workstation:nth-child(9){transform:translateY(10px) scale(.9)}
+.hq-desk-top{position:absolute;left:4%;right:4%;top:53%;height:19%;background:linear-gradient(180deg,#b0bdc4,#687985 38%,#344755 42%,#1b2b37);border:1px solid #c3cdd0;border-radius:3px;box-shadow:0 5px 0 #0b141c}
+.hq-desk-leg{position:absolute;left:15%;right:15%;top:72%;height:13%;border-left:3px solid #667782;border-right:3px solid #667782;border-bottom:2px solid #465762}
+.hq-monitor{position:absolute;z-index:2;left:24%;top:30%;width:52%;height:23%;border:2px solid #92c4d2;border-radius:3px;background:linear-gradient(135deg,#061321,#163b50);box-shadow:0 0 9px #55e7f355;display:flex;align-items:center;justify-content:center;gap:5px}
+.hq-monitor i{width:4px;height:45%;background:#4ce5df;box-shadow:0 0 5px #4ce5df}.hq-monitor i:nth-child(2){height:70%;background:#f3ca51}.hq-monitor i:nth-child(3){height:30%;background:#7bf0ad}
+.hq-mini-robot{position:absolute;z-index:3;top:0;left:50%;width:43px;height:65px;transform:translateX(-50%);filter:drop-shadow(0 2px 3px #000)}
+.hq-robot-head{position:absolute;top:0;left:12px;width:20px;height:17px;border:2px solid #d9e5e8;border-radius:7px;background:linear-gradient(135deg,#f3ffff,#5d8394 60%,#263d4d)}
+.hq-robot-head:after{content:"";position:absolute;left:3px;right:3px;top:5px;height:4px;border-radius:3px;background:#061a2b;box-shadow:3px 0 #61efff,9px 0 #61efff;animation:hqEyes 2.5s infinite}
+.hq-robot-body{position:absolute;top:19px;left:9px;width:26px;height:26px;border:2px solid #c6d6db;border-radius:6px 6px 4px 4px;background:linear-gradient(90deg,#526f7d,#e4f2f2 50%,#5b7786)}
+.hq-robot-body:after{content:"";position:absolute;top:6px;left:8px;width:7px;height:8px;background:#142f40;border:1px solid #7ae9ee;border-radius:2px}
+.hq-robot-arm{position:absolute;top:21px;width:7px;height:23px;border:1px solid #d0e0e4;border-radius:5px;background:linear-gradient(90deg,#546f7c,#d9e7e9)}
+.hq-robot-arm.left{left:3px;transform:rotate(17deg)}.hq-robot-arm.right{right:3px;transform:rotate(-17deg)}
+.hq-work-label{position:absolute;top:78%;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.hq-work-label b{font-size:clamp(8px,2.2vw,11px);letter-spacing:.6px;color:#f8d96b;text-shadow:0 1px 4px #000;background:#09131de8;border:1px solid #77652f;border-radius:4px;padding:3px 5px;max-width:100%;overflow:hidden}
+.hq-work-label span{font-size:clamp(7px,1.8vw,9px);color:#d1e1e8;text-shadow:0 1px 3px #000}
+.hq-office-caption{position:absolute;z-index:4;bottom:7px;left:10px;right:10px;display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid #b99b3a;background:#07111de8;color:#f7d86b;font-size:10px;font-weight:900;letter-spacing:1px;border-radius:7px}
+.hq-live-lamp{width:7px;height:7px;border-radius:50%;background:#6cf5a9;box-shadow:0 0 9px #6cf5a9;animation:pulseLive 1.4s infinite}
+@keyframes hqEyes{0%,100%{opacity:1}50%{opacity:.5}}
+@media(max-width:390px){.hq-office-scene{height:510px}.hq-workstations{inset:36% 2% 11%;gap:0}.hq-mini-robot{transform:translateX(-50%) scale(.78);transform-origin:top center}.hq-work-label{top:77%}.hq-desk-top{top:50%;height:20%}.hq-monitor{top:28%;height:24%}}
+@media(min-width:650px){.hq-office-scene{height:700px}.hq-workstations{inset:32% 7% 9%;gap:0 4%}.hq-mini-robot{transform:translateX(-50%) scale(1.2);transform-origin:top center}.hq-work-label b{font-size:13px}.hq-work-label span{font-size:11px}}
+
 </style></head><body>
 <header><span class="pill">PAINEL DE COMANDO</span><h1>🤖 ROBOT HQ</h1><p>O teu escritório virtual de inteligência artificial</p></header>
 <nav aria-label="Atalhos ROBOT HQ" style="position:sticky;top:0;z-index:9999;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px;background:#080d1bf2;border-bottom:1px solid #29415f">
@@ -151,16 +188,19 @@ body>header,.office-hero{display:none!important}main{display:none}
 
 <section class="game-office" id="virtualOffice" aria-label="Equipa ROBOT HQ num escritório executivo com robôs metálicos">
 <div class="game-topbar"><span>● ESCRITÓRIO VIRTUAL</span><span>9 ROBÔS ESPECIALISTAS · SALA DE OPERAÇÕES</span></div>
-<div class="game-team">
-<div class="game-member"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">ATLAS</span><span class="game-role">Estratégia</span></div>
-<div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">PIXEL</span><span class="game-role">Marketing</span></div>
-<div class="game-member purple"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">SCOUT</span><span class="game-role">Pesquisa</span></div>
-<div class="game-member green"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">LEDGER</span><span class="game-role">Finanças</span></div>
-<div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">NOVA</span><span class="game-role">Vendas</span></div>
-<div class="game-member"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">ORBIT</span><span class="game-role">Operações</span></div>
-<div class="game-member purple"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">TYRE</span><span class="game-role">Pneus</span></div>
-<div class="game-member green"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">BUILDER</span><span class="game-role">Tecnologia</span></div>
-<div class="game-member gold"><div class="game-avatar"><i class="game-arm left"></i><i class="game-arm right"></i><i class="game-leg left"></i><i class="game-leg right"></i><i class="game-body"></i><i class="game-head"></i></div><div class="game-desk"></div><span class="game-label">CONNECT</span><span class="game-role">Ferramentas</span></div>
+<div class="hq-office-scene" aria-label="Sala 3D com nove robôs a trabalhar em secretárias">
+ <div class="hq-back-wall"><div class="hq-window-row"><span></span><span></span><span></span><span></span></div><div class="hq-wall-screen"><b>ROBOT HQ</b><span>OPERATIONS · LIVE</span><i></i></div><div class="hq-wall-bars"></div></div>
+ <div class="hq-floor-grid"></div>
+ <div class="hq-workstations"><div class="hq-workstation ws-1"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>ATLAS</b><span>Estratégia</span></div></div>
+<div class="hq-workstation ws-2"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>PIXEL</b><span>Marketing</span></div></div>
+<div class="hq-workstation ws-3"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>SCOUT</b><span>Pesquisa</span></div></div>
+<div class="hq-workstation ws-4"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>LEDGER</b><span>Finanças</span></div></div>
+<div class="hq-workstation ws-5"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>NOVA</b><span>Vendas</span></div></div>
+<div class="hq-workstation ws-6"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>ORBIT</b><span>Operações</span></div></div>
+<div class="hq-workstation ws-7"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>TYRE</b><span>Pneus</span></div></div>
+<div class="hq-workstation ws-8"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>BUILDER</b><span>Tecnologia</span></div></div>
+<div class="hq-workstation ws-9"><div class="hq-mini-robot"><i class="hq-robot-head"></i><i class="hq-robot-body"></i><i class="hq-robot-arm left"></i><i class="hq-robot-arm right"></i></div><div class="hq-monitor"><i></i><i></i><i></i></div><div class="hq-desk-top"></div><div class="hq-desk-leg"></div><div class="hq-work-label"><b>CONNECT</b><span>Ferramentas</span></div></div></div>
+ <div class="hq-office-caption"><span class="hq-live-lamp"></span> SALA DE OPERAÇÕES · 9 ESTAÇÕES</div>
 </div>
 <div class="live-floor" aria-label="Painel de tarefas do escritório">
  <div class="live-floor-head"><span><span class="live-dot"></span> PAINEL DE OPERAÇÕES</span><span id="hqLiveClock">A INICIAR…</span></div>
