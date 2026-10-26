@@ -63,7 +63,7 @@ button{cursor:pointer;padding:12px 13px;margin:3px 0;background:var(--cyan);colo
 
 /* Interface simples: uma única sala com chefe e equipa */
 body>header,.office-hero{display:none!important}main{display:none}
-.game-office{display:block!important;margin:0;min-height:100vh;border:0;border-radius:0;overflow:auto;background:linear-gradient(180deg,rgba(5,13,24,.62),rgba(5,13,24,.9)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed;box-shadow:none;padding-bottom:24px}
+.game-office{display:block!important;margin:0;min-height:100vh;border:0;border-radius:0;overflow:auto;background:linear-gradient(180deg,rgba(5,13,24,.62),rgba(5,13,24,.9)),url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85") center/cover fixed;box-shadow:none;padding-bottom:24px}
 .game-office:before,.game-office:after{display:none}
 .game-topbar{position:sticky;top:0;background:rgba(5,13,24,.88);backdrop-filter:blur(8px);font-size:12px;padding:14px 16px}
 .game-team{grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px;margin:0 auto;gap:14px;padding:24px 12px 12px}
@@ -83,7 +83,7 @@ body>header,.office-hero{display:none!important}main{display:none}
 
 
 /* Sala de robôs com postos de trabalho e estado de tarefa */
-.game-office{background:linear-gradient(180deg,rgba(5,13,24,.28),rgba(5,13,24,.72)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed!important}
+.game-office{background:linear-gradient(180deg,rgba(5,13,24,.28),rgba(5,13,24,.72)),url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85") center/cover fixed!important}
 .game-team{max-width:1000px;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:24px 14px}
 .game-member{position:relative;min-height:190px;padding:12px 6px 14px;background:linear-gradient(180deg,rgba(10,25,43,.86),rgba(4,13,25,.96));border:1px solid #9bd9f34a;box-shadow:0 10px 24px #0007;transition:transform .25s,border-color .25s}
 .game-member:before{content:"";position:absolute;left:12%;right:12%;bottom:48px;height:34px;border:2px solid #5d7d96;border-radius:5px 5px 2px 2px;background:linear-gradient(135deg,#162f49,#071321);box-shadow:inset 0 0 0 2px #0a1522,0 8px 0 -3px #7d98ad}
@@ -107,7 +107,7 @@ body>header,.office-hero{display:none!important}main{display:none}
 .boss-search-buttons{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}.boss-search-buttons button{width:100%;padding:12px;border:1px solid #65efff;background:#10283c;color:#dffaff;border-radius:10px;font-weight:800;font-size:14px}.boss-search-buttons button:first-child{background:#65efff;color:#061421}.boss-console input[type=search]{box-sizing:border-box}@media(min-width:520px){.boss-search-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 /* ROBOT HQ — atualização visual: escritório executivo e robôs metálicos */
-.game-office{background:linear-gradient(180deg,rgba(3,9,17,.18),rgba(3,9,17,.72)),url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover fixed!important}
+.game-office{background:linear-gradient(180deg,rgba(3,9,17,.18),rgba(3,9,17,.72)),url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85") center/cover fixed!important}
 .game-topbar{background:rgba(3,10,18,.82);border-bottom:1px solid #d9e7f333;backdrop-filter:blur(12px);letter-spacing:.7px}
 .game-member{background:linear-gradient(155deg,rgba(20,32,45,.82),rgba(3,10,18,.95));border:1px solid #d7e5f044;box-shadow:0 16px 30px #0008,inset 0 1px #ffffff12;backdrop-filter:blur(7px)}
 .game-avatar{filter:drop-shadow(0 12px 8px #000a)}
@@ -188,7 +188,7 @@ body>header,.office-hero{display:none!important}main{display:none}
 <button type="button" onclick="document.getElementById('scoutMissionSystem').scrollIntoView({behavior:'smooth',block:'start'})" style="font-weight:800">🔎 Centro SCOUT</button>
 </nav>
 <section class="office-hero" aria-label="Escritório virtual ROBOT HQ">
-<img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1800&amp;q=85" alt="Escritório moderno com postos de trabalho" fetchpriority="high">
+<img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1800&amp;q=85" alt="Escritório moderno com postos de trabalho" fetchpriority="high">
 <div class="office-copy"><h2>Um escritório inteiro a trabalhar para ti</h2><p>Estratégia, pesquisa, marketing, finanças e organização num só lugar.</p><div class="office-bots" aria-label="Equipa de robôs">🤖 🧠 🔎 💶 ⚙️ 🤖</div></div><div class="actions" style="justify-content:center;margin-top:10px"><button type="button" onclick="document.getElementById('scoutMissionSystem').scrollIntoView({behavior:'smooth',block:'start'})">Abrir Centro SCOUT</button></div>
 </section>
 
@@ -594,7 +594,32 @@ function scoutAddCandidate(){scoutCandidates.push({name:'',price:'',year:'',km:'
 function scoutRenderCandidates(){const root=document.getElementById('scoutCandidates');if(!root)return;root.replaceChildren();document.getElementById('scoutCount').textContent=String(scoutCandidates.length);if(!scoutCandidates.length){const p=document.createElement('p');p.className='hint';p.textContent='Ainda não há anúncios registados. Toca em “Adicionar anúncio verificado” depois de encontrares uma fonte.';root.append(p);return}scoutCandidates.forEach((c,i)=>{const box=document.createElement('div');box.style.cssText='border:1px solid #344b6a;border-radius:12px;padding:12px;margin:9px 0;background:#0c182a';const title=document.createElement('h3');title.textContent='Oportunidade '+(i+1);box.append(title);const fields=[['name','Modelo / título'],['price','Preço pedido (€)'],['year','Ano'],['km','Quilómetros / dimensão'],['fuel','Combustível / tipo'],['location','Localização confirmada'],['url','Link direto da fonte'],['risks','Riscos / custos por confirmar'],['status','Estado da verificação']];fields.forEach(([key,label])=>{const lab=document.createElement('label');lab.textContent=label;lab.htmlFor='scout-'+i+'-'+key;const inp=key==='risks'?document.createElement('textarea'):document.createElement('input');inp.id='scout-'+i+'-'+key;inp.value=c[key]||'';inp.placeholder=key==='status'?'Por verificar':'Preencher apenas se confirmado';inp.addEventListener('input',()=>{scoutCandidates[i][key]=inp.value});box.append(lab,inp)});const del=document.createElement('button');del.className='secondary';del.type='button';del.textContent='Remover registo';del.addEventListener('click',()=>{scoutCandidates.splice(i,1);scoutRenderCandidates()});box.append(del);root.append(box)})}
 function scoutSaveCandidates(){try{const old=JSON.parse(localStorage.getItem(SCOUT_STORE_KEY)||'{}');old.candidates=scoutCandidates;old.updated=new Date().toISOString();localStorage.setItem(SCOUT_STORE_KEY,JSON.stringify(old));scoutStatus('Registos guardados localmente neste navegador.')}catch(e){scoutStatus('Não consegui guardar. Verifica as definições de armazenamento do Safari.')}}
 function scoutClearCandidates(){if(!confirm('Apagar todos os registos SCOUT desta missão neste navegador?'))return;scoutCandidates=[];scoutSaveCandidates();scoutRenderCandidates();document.getElementById('scoutReport').value='';scoutStatus('Registos desta missão apagados.')}
-function scoutBuildReport(){const cat=document.getElementById('scoutCategory').value, budget=document.getElementById('scoutBudget').value, zone=document.getElementById('scoutZone').value.trim(), terms=document.getElementById('scoutTerms').value.trim();const date=new Date().toLocaleString('pt-PT');let out='ROBOT HQ — RELATÓRIO SCOUT\nMissão: '+cat+'\nZona: '+(zone||'Por definir')+'\nOrçamento máximo: '+(budget?Number(budget).toLocaleString('pt-PT')+' €':'Não definido')+'\nCritérios: '+(terms||'Não especificados')+'\nData/hora de preparação: '+date+'\n\nESTADO E LIMITAÇÕES\nEste relatório reúne dados introduzidos pelo utilizador. Não confirma automaticamente se os anúncios continuam ativos. Reabrir cada fonte e verificar os dados antes de tomar uma decisão. Preços anunciados não são preços de transação. Não existe garantia de lucro.\n\nOPORTUNIDADES REGISTADAS\n';if(!scoutCandidates.length)out+='Ainda não foram registados anúncios individuais. Fazer a pesquisa nas fontes públicas e preencher os registos antes de emitir uma recomendação.\n';scoutCandidates.forEach((c,i)=>{out+='\n'+(i+1)+'. '+(c.name||'Título por confirmar')+'\nPreço pedido: '+(c.price||'Por confirmar')+'\nAno: '+(c.year||'Por confirmar')+'\nQuilómetros/dimensão: '+(c.km||'Por confirmar')+'\nCombustível/tipo: '+(c.fuel||'Por confirmar')+'\nLocalização: '+(c.location||'Por confirmar')+'\nLink: '+(c.url||'Link direto por inserir')+'\nEstado: '+(c.status||'Por verificar')+'\nRiscos/custos por confirmar: '+(c.risks||'Inspeção, histórico, documentação, manutenção e custos totais por verificar')+'\n')});out+='\nCHECKLIST ANTES DA RECOMENDAÇÃO\n- Abrir cada link e confirmar que o anúncio continua ativo.\n- Confirmar localização, preço, ano, versão, quilometragem e especificações.\n- Comparar apenas opções semelhantes.\n- Verificar documentação, inspeção e histórico.\n- Obter avaliação independente e custos de reparação.\n- Calcular todos os custos antes de estimar qualquer margem.\n- Distinguir factos confirmados de estimativas e dados em falta.\n- Aprovação humana obrigatória antes de enviar ao cliente.\n\nFontes: usar os URLs diretos registados em cada oportunidade.\n';document.getElementById('scoutReport').value=out;scoutStatus('Rascunho de relatório preparado. Revê os dados e confirma cada fonte antes de o partilhares.')}
+function scoutBuildReport(){
+ const cat=document.getElementById('scoutCategory').value;
+ const budget=document.getElementById('scoutBudget').value;
+ const zone=document.getElementById('scoutZone').value.trim();
+ const terms=document.getElementById('scoutTerms').value.trim();
+ const date=new Date().toLocaleString('pt-PT');
+ const lines=[
+ 'ROBOT HQ — RELATÓRIO SCOUT',
+ 'Missão: '+cat,
+ 'Zona: '+(zone||'Por definir'),
+ 'Orçamento máximo: '+(budget?Number(budget).toLocaleString('pt-PT')+' €':'Não definido'),
+ 'Critérios: '+(terms||'Não especificados'),
+ 'Data/hora de preparação: '+date,
+ '',
+ 'ESTADO E LIMITAÇÕES',
+ 'Este relatório reúne dados introduzidos pelo utilizador. Não confirma automaticamente se os anúncios continuam ativos. Reabrir cada fonte e verificar os dados antes de tomar uma decisão. Preços anunciados não são preços de transação. Não existe garantia de lucro.',
+ '',
+ 'OPORTUNIDADES REGISTADAS'
+ ];
+ if(!scoutCandidates.length) lines.push('Ainda não foram registados anúncios individuais. Fazer a pesquisa nas fontes públicas e preencher os registos antes de emitir uma recomendação.');
+ scoutCandidates.forEach((c,i)=>lines.push('',(i+1)+'. '+(c.name||'Título por confirmar'),'Preço pedido: '+(c.price||'Por confirmar'),'Ano: '+(c.year||'Por confirmar'),'Quilómetros/dimensão: '+(c.km||'Por confirmar'),'Combustível/tipo: '+(c.fuel||'Por confirmar'),'Localização: '+(c.location||'Por confirmar'),'Link: '+(c.url||'Link direto por inserir'),'Estado: '+(c.status||'Por verificar'),'Riscos/custos por confirmar: '+(c.risks||'Inspeção, histórico, documentação, manutenção e custos totais por verificar')));
+ lines.push('','CHECKLIST ANTES DA RECOMENDAÇÃO','- Abrir cada link e confirmar que o anúncio continua ativo.','- Confirmar localização, preço, ano, versão, quilometragem e especificações.','- Comparar apenas opções semelhantes.','- Verificar documentação, inspeção e histórico.','- Obter avaliação independente e custos de reparação.','- Calcular todos os custos antes de estimar qualquer margem.','- Distinguir factos confirmados de estimativas e dados em falta.','- Aprovação humana obrigatória antes de enviar ao cliente.','','Fontes: usar os URLs diretos registados em cada oportunidade.');
+ document.getElementById('scoutReport').value=lines.join(String.fromCharCode(10));
+ scoutStatus('Rascunho de relatório preparado. Revê os dados e confirma cada fonte antes de o partilhares.');
+}
+
 function scoutCopyReport(){const t=document.getElementById('scoutReport').value;if(!t){scoutBuildReport();return}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>scoutStatus('Relatório copiado.')).catch(()=>scoutStatus('Não consegui copiar automaticamente; seleciona o texto do relatório e copia manualmente.'))}else{document.getElementById('scoutReport').focus();document.getElementById('scoutReport').select();scoutStatus('Texto selecionado. Usa Copiar no menu do iPhone.')}}
 function scoutDownloadReport(){if(!document.getElementById('scoutReport').value)scoutBuildReport();const text=document.getElementById('scoutReport').value;const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='ROBOT-HQ-SCOUT-relatorio.txt';document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);scoutStatus('Relatório preparado para guardar como ficheiro de texto.')}
 (function scoutInit(){try{const z=JSON.parse(localStorage.getItem(SCOUT_STORE_KEY)||'{}');if(z.category)document.getElementById('scoutCategory').value=z.category;if(z.budget!==undefined)document.getElementById('scoutBudget').value=z.budget;if(z.zone)document.getElementById('scoutZone').value=z.zone;if(z.terms)document.getElementById('scoutTerms').value=z.terms;if(Array.isArray(z.candidates))scoutCandidates=z.candidates;document.getElementById('scoutBudgetView').textContent=z.budget?Number(z.budget).toLocaleString('pt-PT')+' €':'Não definido';if(z.updated)document.getElementById('scoutMissionState').textContent='Guardada'}catch(e){}scoutRenderCandidates()})();
