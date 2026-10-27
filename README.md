@@ -1,24 +1,38 @@
 # ROBOT HQ
 
-Escritório web para Safari/iPhone: https://zecasemedo-hash.github.io/robot-hq/
+Interface web: https://zecasemedo-hash.github.io/robot-hq/?v=4
 
-## Ativar a conversa com IA dentro do site
+## Cloudflare Worker
 
-O chat está preparado no `index.html`, mas precisa de um Cloudflare Worker publicado e de Workers AI ligado. O código do Worker é `cloudflare-worker.js`.
+O ficheiro `worker.js` implementa:
+- `GET /` e `GET /health` para estado do serviço;
+- `POST /api/chat` protegido por `X-Robot-Token`;
+- `POST /api/public-chat` para atendimento público;
+- `GET /api/account` para consultar saldos da Binance **Spot Testnet**, apenas leitura.
 
-1. Abre https://dash.cloudflare.com/ e entra na tua conta.
-2. Vai a **Workers & Pages** e cria um Worker (ou abre o Worker que já usas para o ROBOT HQ).
-3. Publica o conteúdo de `cloudflare-worker.js` no Worker.
-4. Nas definições do Worker, adiciona **Bindings → Workers AI** com o nome de variável **AI**.
-5. Nas variáveis/segredos do Worker, cria **ROBOT_ACCESS_TOKEN** com um token forte e privado. Não o publiques no GitHub nem o envies a ninguém.
-6. Publica/guarda as alterações e copia o endereço `https://...workers.dev` do Worker.
-7. Abre o site ROBOT HQ, desce até **Ligar à Binance Testnet**, introduz a URL do Worker e o mesmo `ROBOT_ACCESS_TOKEN`, toca em **Guardar configuração neste iPhone** e depois em **Testar servidor**.
-8. Volta ao Chefe Supremo e envia uma mensagem. O chat usa a URL e o token já guardados no navegador.
+O Worker tenta usar a primeira IA configurada nesta ordem: OpenAI, Gemini, Anthropic Claude e Cloudflare Workers AI.
 
-## Segurança e limites
+## Configuração no Cloudflare
 
-- O endpoint de chat só aceita pedidos autenticados com `ROBOT_ACCESS_TOKEN` e está limitado ao domínio publicado do ROBOT HQ no CORS.
-- Nunca coloques chaves privadas da Binance no HTML ou no GitHub.
-- O Worker existente usa **Binance Spot Testnet** para consulta, não coloca ordens nem levanta fundos.
-- Workers AI tem limites, disponibilidade e condições de utilização da Cloudflare; confirma os limites atuais na tua conta. Não assumas que todo o uso é ilimitado ou gratuito.
-- A alteração do código no GitHub não garante que o Worker esteja publicado ou que a IA esteja ativa. É necessário fazer os passos acima e testar.
+Em **Workers & Pages → robot-hq-binance → Settings → Variables and Secrets**, guardar como secrets (nunca no HTML nem no GitHub):
+- `ROBOT_ACCESS_TOKEN` — token privado forte, escolhido por ti;
+- opcional: `OPENAI_API_KEY`;
+- opcional: `GEMINI_API_KEY`;
+- opcional: `ANTHROPIC_API_KEY`;
+- para consultar Binance Spot Testnet: `BINANCE_API_KEY` e `BINANCE_API_SECRET` da **Testnet**, não as chaves da conta real.
+
+Se houver várias chaves de IA, o Worker usa a primeira disponível pela ordem indicada acima. A rota pública `/api/public-chat` não exige token; configura limites de utilização no Cloudflare antes de divulgar o site publicamente.
+
+## Publicar
+
+A partir desta pasta, com Wrangler instalado e sessão Cloudflare autenticada:
+
+```bash
+npx wrangler deploy
+```
+
+Confirma primeiro que o nome do Worker no Cloudflare é `robot-hq-binance`. Depois testa:
+- `https://robot-hq-binance.zeca-semedo.workers.dev/health`
+- No site, secção “Ligações do sistema”: URL do Worker + `ROBOT_ACCESS_TOKEN`, guardar e testar IA.
+
+**Segurança:** não adicionar chaves API ou tokens ao repositório. A rota Binance consulta apenas a Spot Testnet e não envia ordens de compra/venda.
